@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class TestCase(BaseModel):
+class QuestionTestCase(BaseModel):
     input: str
     output: str
 
@@ -12,7 +12,7 @@ class Question(BaseModel):
     difficulty: str
     tags: list[str]
     description: str
-    test_cases: list[TestCase]
+    test_cases: list[QuestionTestCase]
     hints: list[str]
     follow_ups: list[str]
     companies: list[str]
