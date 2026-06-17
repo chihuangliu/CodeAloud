@@ -1,4 +1,3 @@
-import pytest
 from app.services.prompt_builder import build_system_prompt
 from app.models.session import ExecutionResult
 

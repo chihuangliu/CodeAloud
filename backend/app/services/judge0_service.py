@@ -2,8 +2,6 @@ import os
 import httpx
 from ..models.session import ExecutionResult
 
-JUDGE0_URL = os.environ.get("JUDGE0_URL", "http://judge0:2358")
-
 LANGUAGE_IDS = {
     "python": 71,
     "javascript": 63,
@@ -12,7 +10,10 @@ LANGUAGE_IDS = {
 }
 
 
-async def execute(code: str, language: str = "python", stdin: str = "") -> ExecutionResult:
+async def execute(
+    code: str, language: str = "python", stdin: str = ""
+) -> ExecutionResult:
+    judge0_url = os.environ.get("JUDGE0_URL", "http://judge0:2358")
     language_id = LANGUAGE_IDS.get(language, LANGUAGE_IDS["python"])
     payload = {
         "source_code": code,
@@ -21,7 +22,7 @@ async def execute(code: str, language: str = "python", stdin: str = "") -> Execu
     }
     async with httpx.AsyncClient(timeout=30.0) as client:
         resp = await client.post(
-            f"{JUDGE0_URL}/submissions",
+            f"{judge0_url}/submissions",
             json=payload,
             params={"wait": "true", "base64_encoded": "false"},
         )

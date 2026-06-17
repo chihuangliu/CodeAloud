@@ -64,7 +64,9 @@ async def send_message(body: MessageRequest):
 
     content = body.content
     if body.inject_code and session.code_snapshots:
-        content += f"\n\n[My current code]\n```python\n{session.code_snapshots[-1]}\n```"
+        content += (
+            f"\n\n[My current code]\n```python\n{session.code_snapshots[-1]}\n```"
+        )
         if session.last_execution:
             ex = session.last_execution
             content += f"\n[Execution result] status={ex.status}, output={ex.stdout!r}"
@@ -109,7 +111,9 @@ Return ONLY valid JSON, no markdown."""
     messages = session.to_api_messages() + [{"role": "user", "content": eval_prompt}]
 
     result_text = ""
-    async for chunk in llm.stream(messages, "You are a coding interview evaluator. Return only valid JSON."):
+    async for chunk in llm.stream(
+        messages, "You are a coding interview evaluator. Return only valid JSON."
+    ):
         result_text += chunk
 
     await session_manager.delete(session.session_id)

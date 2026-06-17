@@ -9,19 +9,26 @@ def make_mock_response(data: dict, status_code: int = 200):
     mock_resp.status_code = status_code
     mock_resp.json.return_value = data
     mock_resp.raise_for_status = MagicMock(
-        side_effect=httpx.HTTPStatusError("err", request=MagicMock(), response=mock_resp)
-        if status_code >= 400 else None
+        side_effect=httpx.HTTPStatusError(
+            "err", request=MagicMock(), response=mock_resp
+        )
+        if status_code >= 400
+        else None
     )
     return mock_resp
 
 
 def patch_httpx(response_data: dict, status_code: int = 200):
     mock_client = AsyncMock()
-    mock_client.post = AsyncMock(return_value=make_mock_response(response_data, status_code))
+    mock_client.post = AsyncMock(
+        return_value=make_mock_response(response_data, status_code)
+    )
     cm = MagicMock()
     cm.__aenter__ = AsyncMock(return_value=mock_client)
     cm.__aexit__ = AsyncMock(return_value=False)
-    return patch("app.services.judge0_service.httpx.AsyncClient", return_value=cm), mock_client
+    return patch(
+        "app.services.judge0_service.httpx.AsyncClient", return_value=cm
+    ), mock_client
 
 
 class TestLanguageIds:
@@ -56,7 +63,11 @@ class TestExecute:
         assert result.time == "0.05"
 
     async def test_sends_correct_language_id(self):
-        response_data = {"stdout": "", "stderr": "", "status": {"description": "Accepted"}}
+        response_data = {
+            "stdout": "",
+            "stderr": "",
+            "status": {"description": "Accepted"},
+        }
         ctx, mock_client = patch_httpx(response_data)
         with ctx:
             await execute("code", "javascript")
@@ -65,12 +76,19 @@ class TestExecute:
         assert call_kwargs.kwargs["json"]["language_id"] == LANGUAGE_IDS["javascript"]
 
     async def test_falls_back_to_python_for_unknown_language(self):
-        response_data = {"stdout": "", "stderr": "", "status": {"description": "Accepted"}}
+        response_data = {
+            "stdout": "",
+            "stderr": "",
+            "status": {"description": "Accepted"},
+        }
         ctx, mock_client = patch_httpx(response_data)
         with ctx:
             await execute("code", "ruby")
 
-        assert mock_client.post.call_args.kwargs["json"]["language_id"] == LANGUAGE_IDS["python"]
+        assert (
+            mock_client.post.call_args.kwargs["json"]["language_id"]
+            == LANGUAGE_IDS["python"]
+        )
 
     async def test_returns_stderr_on_error_output(self):
         response_data = {
@@ -86,7 +104,11 @@ class TestExecute:
         assert result.status == "Runtime Error"
 
     async def test_passes_stdin(self):
-        response_data = {"stdout": "5\n", "stderr": "", "status": {"description": "Accepted"}}
+        response_data = {
+            "stdout": "5\n",
+            "stderr": "",
+            "status": {"description": "Accepted"},
+        }
         ctx, mock_client = patch_httpx(response_data)
         with ctx:
             await execute("n = int(input()); print(n)", "python", stdin="5")

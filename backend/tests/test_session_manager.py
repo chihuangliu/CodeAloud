@@ -1,8 +1,6 @@
 import json
-import pytest
 from unittest.mock import AsyncMock, MagicMock, patch
 from app.services import session_manager
-from app.models.session import Session
 
 
 def make_mock_redis(get_return=None):
@@ -57,4 +55,6 @@ class TestSessionManager:
         cm, mock_redis = make_mock_redis()
         with patch("app.services.session_manager._get_redis", return_value=cm):
             await session_manager.delete(sample_session.session_id)
-        mock_redis.delete.assert_called_once_with(f"session:{sample_session.session_id}")
+        mock_redis.delete.assert_called_once_with(
+            f"session:{sample_session.session_id}"
+        )

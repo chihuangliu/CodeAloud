@@ -1,12 +1,18 @@
-import pytest
-from app.models.session import Session, Message
-from app.models.question import Question, QuestionTestCase
+from app.models.session import Session
+from app.models.question import Question
 
 
 def make_session(n_messages: int) -> Session:
     q = Question(
-        id="q1", title="T", difficulty="easy", tags=[], description="d",
-        test_cases=[], hints=[], follow_ups=[], companies=[],
+        id="q1",
+        title="T",
+        difficulty="easy",
+        tags=[],
+        description="d",
+        test_cases=[],
+        hints=[],
+        follow_ups=[],
+        companies=[],
     )
     s = Session(session_id="sid", question=q)
     for i in range(n_messages):

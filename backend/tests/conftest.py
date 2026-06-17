@@ -11,7 +11,7 @@ os.environ.setdefault("REDIS_URL", "redis://redis-test:6379")
 
 from app.main import app  # noqa: E402 — must come after env setup
 from app.models.question import Question, QuestionTestCase
-from app.models.session import Session, Message
+from app.models.session import Session
 
 
 @pytest.fixture

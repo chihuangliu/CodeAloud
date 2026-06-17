@@ -1,10 +1,10 @@
 import json
-import pytest
 from unittest.mock import AsyncMock, patch, MagicMock
 
 
 def make_llm_client(chunks: list[str]):
     """Return a mock LLMClient whose stream() yields the given chunks."""
+
     async def _stream(messages, system):
         for chunk in chunks:
             yield chunk
@@ -32,8 +32,10 @@ LLM_PATH = "app.routers.interview.get_llm_client"
 class TestStartInterview:
     def test_streams_greeting_text(self, client):
         mock_llm = make_llm_client(["Hello", "! Welcome."])
-        with patch(LLM_PATH, return_value=mock_llm), \
-             patch(SAVE_PATH, new_callable=AsyncMock):
+        with (
+            patch(LLM_PATH, return_value=mock_llm),
+            patch(SAVE_PATH, new_callable=AsyncMock),
+        ):
             resp = client.post("/interview/start", json={"question_id": "lc-1"})
 
         assert resp.status_code == 200
@@ -44,8 +46,10 @@ class TestStartInterview:
 
     def test_done_event_contains_session_id(self, client):
         mock_llm = make_llm_client(["Hi"])
-        with patch(LLM_PATH, return_value=mock_llm), \
-             patch(SAVE_PATH, new_callable=AsyncMock):
+        with (
+            patch(LLM_PATH, return_value=mock_llm),
+            patch(SAVE_PATH, new_callable=AsyncMock),
+        ):
             resp = client.post("/interview/start", json={"question_id": "lc-1"})
 
         events = parse_sse(resp.text)
@@ -61,13 +65,18 @@ class TestStartInterview:
 class TestSendMessage:
     def test_streams_response(self, client, sample_session):
         mock_llm = make_llm_client(["Sure,", " good approach."])
-        with patch(LLM_PATH, return_value=mock_llm), \
-             patch(GET_PATH, return_value=sample_session), \
-             patch(SAVE_PATH, new_callable=AsyncMock):
-            resp = client.post("/interview/message", json={
-                "session_id": sample_session.session_id,
-                "content": "I want to use a hash map.",
-            })
+        with (
+            patch(LLM_PATH, return_value=mock_llm),
+            patch(GET_PATH, return_value=sample_session),
+            patch(SAVE_PATH, new_callable=AsyncMock),
+        ):
+            resp = client.post(
+                "/interview/message",
+                json={
+                    "session_id": sample_session.session_id,
+                    "content": "I want to use a hash map.",
+                },
+            )
 
         assert resp.status_code == 200
         events = parse_sse(resp.text)
@@ -76,10 +85,13 @@ class TestSendMessage:
 
     def test_404_for_missing_session(self, client):
         with patch(GET_PATH, return_value=None):
-            resp = client.post("/interview/message", json={
-                "session_id": "ghost-session",
-                "content": "hello",
-            })
+            resp = client.post(
+                "/interview/message",
+                json={
+                    "session_id": "ghost-session",
+                    "content": "hello",
+                },
+            )
         assert resp.status_code == 404
 
     def test_inject_code_flag_appends_snapshot(self, client, sample_session):
@@ -93,38 +105,52 @@ class TestSendMessage:
 
         mock_llm.stream = capturing_stream
 
-        with patch(LLM_PATH, return_value=mock_llm), \
-             patch(GET_PATH, return_value=sample_session), \
-             patch(SAVE_PATH, new_callable=AsyncMock):
-            client.post("/interview/message", json={
-                "session_id": sample_session.session_id,
-                "content": "I'm done",
-                "inject_code": True,
-            })
+        with (
+            patch(LLM_PATH, return_value=mock_llm),
+            patch(GET_PATH, return_value=sample_session),
+            patch(SAVE_PATH, new_callable=AsyncMock),
+        ):
+            client.post(
+                "/interview/message",
+                json={
+                    "session_id": sample_session.session_id,
+                    "content": "I'm done",
+                    "inject_code": True,
+                },
+            )
 
-        last_user_msg = next(m for m in reversed(captured_messages) if m["role"] == "user")
+        last_user_msg = next(
+            m for m in reversed(captured_messages) if m["role"] == "user"
+        )
         assert "def solve()" in last_user_msg["content"]
 
 
 class TestEndInterview:
     def test_returns_eval_report_structure(self, client, sample_session):
-        report_json = json.dumps({
-            "time_complexity": "O(n)",
-            "space_complexity": "O(n)",
-            "communication_score": 7,
-            "approach_score": 8,
-            "improvements": ["Consider edge cases for empty array"],
-            "follow_up_quality": "Good explanation of sorted-array approach",
-        })
+        report_json = json.dumps(
+            {
+                "time_complexity": "O(n)",
+                "space_complexity": "O(n)",
+                "communication_score": 7,
+                "approach_score": 8,
+                "improvements": ["Consider edge cases for empty array"],
+                "follow_up_quality": "Good explanation of sorted-array approach",
+            }
+        )
         mock_llm = make_llm_client([report_json])
 
-        with patch(LLM_PATH, return_value=mock_llm), \
-             patch(GET_PATH, return_value=sample_session), \
-             patch("app.services.session_manager.delete", new_callable=AsyncMock):
-            resp = client.post("/interview/end", json={
-                "session_id": sample_session.session_id,
-                "content": "end",
-            })
+        with (
+            patch(LLM_PATH, return_value=mock_llm),
+            patch(GET_PATH, return_value=sample_session),
+            patch("app.services.session_manager.delete", new_callable=AsyncMock),
+        ):
+            resp = client.post(
+                "/interview/end",
+                json={
+                    "session_id": sample_session.session_id,
+                    "content": "end",
+                },
+            )
 
         assert resp.status_code == 200
         data = resp.json()
@@ -135,13 +161,18 @@ class TestEndInterview:
     def test_returns_fallback_on_malformed_llm_output(self, client, sample_session):
         mock_llm = make_llm_client(["not valid json at all {{{"])
 
-        with patch(LLM_PATH, return_value=mock_llm), \
-             patch(GET_PATH, return_value=sample_session), \
-             patch("app.services.session_manager.delete", new_callable=AsyncMock):
-            resp = client.post("/interview/end", json={
-                "session_id": sample_session.session_id,
-                "content": "end",
-            })
+        with (
+            patch(LLM_PATH, return_value=mock_llm),
+            patch(GET_PATH, return_value=sample_session),
+            patch("app.services.session_manager.delete", new_callable=AsyncMock),
+        ):
+            resp = client.post(
+                "/interview/end",
+                json={
+                    "session_id": sample_session.session_id,
+                    "content": "end",
+                },
+            )
 
         assert resp.status_code == 200
         data = resp.json()

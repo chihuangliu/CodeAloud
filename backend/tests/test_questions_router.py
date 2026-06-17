@@ -1,6 +1,3 @@
-import pytest
-
-
 class TestListQuestions:
     def test_returns_all_questions(self, client):
         resp = client.get("/questions")
