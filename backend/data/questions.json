@@ -1,0 +1,574 @@
+[
+  {
+    "id": "lc-1",
+    "title": "Two Sum",
+    "difficulty": "easy",
+    "tags": ["hash-map", "array"],
+    "description": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nYou can return the answer in any order.",
+    "test_cases": [
+      {"input": "nums = [2,7,11,15], target = 9", "output": "[0,1]"},
+      {"input": "nums = [3,2,4], target = 6", "output": "[1,2]"},
+      {"input": "nums = [3,3], target = 6", "output": "[0,1]"}
+    ],
+    "hints": [
+      "Start with the brute force O(n²) approach first — get something working.",
+      "What if you stored each number's index as you iterate? What data structure gives O(1) lookup?"
+    ],
+    "follow_ups": [
+      "What if the array were sorted — could you do it in O(1) space?",
+      "What if you needed to return all pairs that sum to target, not just one?"
+    ],
+    "companies": ["google", "amazon", "meta"]
+  },
+  {
+    "id": "lc-20",
+    "title": "Valid Parentheses",
+    "difficulty": "easy",
+    "tags": ["stack", "string"],
+    "description": "Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid.\n\nAn input string is valid if:\n1. Open brackets must be closed by the same type of brackets.\n2. Open brackets must be closed in the correct order.\n3. Every close bracket has a corresponding open bracket of the same type.",
+    "test_cases": [
+      {"input": "s = \"()\"", "output": "true"},
+      {"input": "s = \"()[]{}\"", "output": "true"},
+      {"input": "s = \"(]\"", "output": "false"},
+      {"input": "s = \"([)]\"", "output": "false"}
+    ],
+    "hints": [
+      "Think about what data structure naturally handles 'last in, first out' ordering.",
+      "When you see a closing bracket, what do you need to check against?"
+    ],
+    "follow_ups": [
+      "What if the string could also contain wildcard `*` that can be `(`, `)`, or empty?",
+      "How would you handle very long strings efficiently?"
+    ],
+    "companies": ["google", "meta", "amazon"]
+  },
+  {
+    "id": "lc-70",
+    "title": "Climbing Stairs",
+    "difficulty": "easy",
+    "tags": ["dynamic-programming", "memoization"],
+    "description": "You are climbing a staircase. It takes `n` steps to reach the top.\n\nEach time you can either climb `1` or `2` steps. In how many distinct ways can you climb to the top?",
+    "test_cases": [
+      {"input": "n = 2", "output": "2"},
+      {"input": "n = 3", "output": "3"},
+      {"input": "n = 5", "output": "8"}
+    ],
+    "hints": [
+      "How many ways are there to reach step n if you can come from step n-1 or step n-2?",
+      "Does this recurrence look familiar? What famous sequence is this?"
+    ],
+    "follow_ups": [
+      "What if you could climb 1, 2, or 3 steps at a time?",
+      "What is the minimum cost to reach the top if each step has a cost? (LC 746)"
+    ],
+    "companies": ["amazon", "google", "apple"]
+  },
+  {
+    "id": "lc-121",
+    "title": "Best Time to Buy and Sell Stock",
+    "difficulty": "easy",
+    "tags": ["array", "greedy", "sliding-window"],
+    "description": "You are given an array `prices` where `prices[i]` is the price of a given stock on the `i`th day.\n\nYou want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.\n\nReturn the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return `0`.",
+    "test_cases": [
+      {"input": "prices = [7,1,5,3,6,4]", "output": "5"},
+      {"input": "prices = [7,6,4,3,1]", "output": "0"}
+    ],
+    "hints": [
+      "You must buy before you sell. As you scan left to right, what should you track?",
+      "Keep track of the minimum price seen so far. At each day, what's the best profit you could make if you sold today?"
+    ],
+    "follow_ups": [
+      "What if you could make at most 2 transactions? (LC 123)",
+      "What if you could make unlimited transactions? (LC 122)"
+    ],
+    "companies": ["amazon", "bloomberg", "microsoft"]
+  },
+  {
+    "id": "lc-141",
+    "title": "Linked List Cycle",
+    "difficulty": "easy",
+    "tags": ["linked-list", "two-pointers", "floyd"],
+    "description": "Given `head`, the head of a linked list, determine if the linked list has a cycle in it.\n\nThere is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the `next` pointer.",
+    "test_cases": [
+      {"input": "head = [3,2,0,-4], pos = 1", "output": "true"},
+      {"input": "head = [1,2], pos = 0", "output": "true"},
+      {"input": "head = [1], pos = -1", "output": "false"}
+    ],
+    "hints": [
+      "One approach uses a hash set — what's the space complexity? Can we do better?",
+      "What happens if one pointer moves twice as fast as another in a circular track?"
+    ],
+    "follow_ups": [
+      "Can you find where the cycle begins? (LC 142)",
+      "What's the length of the cycle?"
+    ],
+    "companies": ["amazon", "microsoft", "yahoo"]
+  },
+  {
+    "id": "lc-206",
+    "title": "Reverse Linked List",
+    "difficulty": "easy",
+    "tags": ["linked-list", "recursion"],
+    "description": "Given the `head` of a singly linked list, reverse the list, and return the reversed list.",
+    "test_cases": [
+      {"input": "head = [1,2,3,4,5]", "output": "[5,4,3,2,1]"},
+      {"input": "head = [1,2]", "output": "[2,1]"},
+      {"input": "head = []", "output": "[]"}
+    ],
+    "hints": [
+      "Draw out 3 nodes and think about what pointers need to change.",
+      "You need to remember the next node before you overwrite the pointer."
+    ],
+    "follow_ups": [
+      "Can you do it recursively? What's the call stack depth?",
+      "Reverse only nodes between positions left and right. (LC 92)"
+    ],
+    "companies": ["apple", "adobe", "amazon"]
+  },
+  {
+    "id": "lc-226",
+    "title": "Invert Binary Tree",
+    "difficulty": "easy",
+    "tags": ["tree", "recursion", "bfs"],
+    "description": "Given the `root` of a binary tree, invert the tree, and return its root.",
+    "test_cases": [
+      {"input": "root = [4,2,7,1,3,6,9]", "output": "[4,7,2,9,6,3,1]"},
+      {"input": "root = [2,1,3]", "output": "[2,3,1]"},
+      {"input": "root = []", "output": "[]"}
+    ],
+    "hints": [
+      "Think recursively: what does inverting a tree mean for a single node?",
+      "Swap the left and right children, then recursively invert each subtree."
+    ],
+    "follow_ups": [
+      "Can you do it iteratively using a queue (BFS)?",
+      "What is the time and space complexity of each approach?"
+    ],
+    "companies": ["google", "uber", "airbnb"]
+  },
+  {
+    "id": "lc-242",
+    "title": "Valid Anagram",
+    "difficulty": "easy",
+    "tags": ["hash-map", "string", "sorting"],
+    "description": "Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise.",
+    "test_cases": [
+      {"input": "s = \"anagram\", t = \"nagaram\"", "output": "true"},
+      {"input": "s = \"rat\", t = \"car\"", "output": "false"}
+    ],
+    "hints": [
+      "Sort both strings and compare — what's the time complexity?",
+      "Can you do it in O(n) using a frequency count?"
+    ],
+    "follow_ups": [
+      "What if the inputs could contain Unicode characters?",
+      "Find all groups of anagrams in a list of strings. (LC 49)"
+    ],
+    "companies": ["amazon", "bloomberg", "uber"]
+  },
+  {
+    "id": "lc-704",
+    "title": "Binary Search",
+    "difficulty": "easy",
+    "tags": ["array", "binary-search"],
+    "description": "Given an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`. If `target` exists, return its index. Otherwise, return `-1`.\n\nYou must write an algorithm with `O(log n)` runtime complexity.",
+    "test_cases": [
+      {"input": "nums = [-1,0,3,5,9,12], target = 9", "output": "4"},
+      {"input": "nums = [-1,0,3,5,9,12], target = 2", "output": "-1"}
+    ],
+    "hints": [
+      "The key invariant: your target, if it exists, is always within [left, right].",
+      "Off-by-one errors are the enemy here. Walk through a 2-element array carefully."
+    ],
+    "follow_ups": [
+      "Find the first and last position of target. (LC 34)",
+      "Search in a rotated sorted array. (LC 33)"
+    ],
+    "companies": ["bloomberg", "facebook", "microsoft"]
+  },
+  {
+    "id": "lc-733",
+    "title": "Flood Fill",
+    "difficulty": "easy",
+    "tags": ["dfs", "bfs", "matrix"],
+    "description": "An image is represented by an `m x n` integer grid `image` where `image[i][j]` represents the pixel value of the image.\n\nYou are also given three integers `sr`, `sc`, and `color`. Perform a flood fill starting from the pixel `image[sr][sc]`.\n\nTo perform a flood fill, consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, and change the color of all of the aforementioned pixels to `color`.",
+    "test_cases": [
+      {"input": "image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2", "output": "[[2,2,2],[2,2,0],[2,0,1]]"},
+      {"input": "image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0", "output": "[[0,0,0],[0,0,0]]"}
+    ],
+    "hints": [
+      "This is just a graph traversal — BFS or DFS both work.",
+      "Watch out for the edge case where the starting pixel already has the target color."
+    ],
+    "follow_ups": [
+      "How would you extend this to 8-directional connectivity?",
+      "Number of islands uses the same pattern. (LC 200)"
+    ],
+    "companies": ["google", "amazon"]
+  },
+  {
+    "id": "lc-146",
+    "title": "LRU Cache",
+    "difficulty": "medium",
+    "tags": ["design", "hash-map", "doubly-linked-list"],
+    "description": "Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.\n\nImplement the `LRUCache` class:\n- `LRUCache(int capacity)`: Initialize the LRU cache with positive size `capacity`.\n- `int get(int key)`: Return the value of the `key` if the key exists, otherwise return `-1`.\n- `void put(int key, int value)`: Update the value of the `key` if the `key` exists. Otherwise, add the `key-value` pair to the cache. If the number of keys exceeds the `capacity` from this operation, evict the least recently used key.\n\nThe functions `get` and `put` must each run in `O(1)` average time complexity.",
+    "test_cases": [
+      {"input": "LRUCache(2); put(1,1); put(2,2); get(1); put(3,3); get(2); put(4,4); get(1); get(3); get(4)", "output": "1; -1; -1; 3; 4"}
+    ],
+    "hints": [
+      "You need O(1) lookup AND O(1) insertion/deletion at arbitrary positions. What two data structures combined give you that?",
+      "A hash map tells you where a node is; a doubly linked list lets you move it to the front in O(1)."
+    ],
+    "follow_ups": [
+      "Implement an LFU (Least Frequently Used) cache. (LC 460)",
+      "How would you make this thread-safe?"
+    ],
+    "companies": ["amazon", "google", "microsoft", "meta"]
+  },
+  {
+    "id": "lc-3",
+    "title": "Longest Substring Without Repeating Characters",
+    "difficulty": "medium",
+    "tags": ["sliding-window", "hash-map", "string"],
+    "description": "Given a string `s`, find the length of the longest substring without repeating characters.",
+    "test_cases": [
+      {"input": "s = \"abcabcbb\"", "output": "3"},
+      {"input": "s = \"bbbbb\"", "output": "1"},
+      {"input": "s = \"pwwkew\"", "output": "3"}
+    ],
+    "hints": [
+      "Think about maintaining a window of unique characters. When do you need to shrink the window?",
+      "A hash map from character to its last seen index lets you jump the left pointer directly."
+    ],
+    "follow_ups": [
+      "What if you could allow at most k repeating characters? (LC 340)",
+      "What if the string contains Unicode?"
+    ],
+    "companies": ["amazon", "bloomberg", "adobe"]
+  },
+  {
+    "id": "lc-56",
+    "title": "Merge Intervals",
+    "difficulty": "medium",
+    "tags": ["array", "sorting", "greedy"],
+    "description": "Given an array of `intervals` where `intervals[i] = [starti, endi]`, merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
+    "test_cases": [
+      {"input": "intervals = [[1,3],[2,6],[8,10],[15,18]]", "output": "[[1,6],[8,10],[15,18]]"},
+      {"input": "intervals = [[1,4],[4,5]]", "output": "[[1,5]]"}
+    ],
+    "hints": [
+      "Sorting by start time first makes this much simpler — why?",
+      "After sorting, when does the current interval overlap with the previous merged result?"
+    ],
+    "follow_ups": [
+      "Insert a new interval and merge. (LC 57)",
+      "How many meeting rooms do you need? (LC 253)"
+    ],
+    "companies": ["google", "facebook", "twitter"]
+  },
+  {
+    "id": "lc-200",
+    "title": "Number of Islands",
+    "difficulty": "medium",
+    "tags": ["dfs", "bfs", "union-find", "matrix"],
+    "description": "Given an `m x n` 2D binary grid `grid` which represents a map of `'1'`s (land) and `'0'`s (water), return the number of islands.\n\nAn island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.",
+    "test_cases": [
+      {"input": "grid = [[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]", "output": "4"},
+      {"input": "grid = [[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"1\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"1\",\"1\"]]", "output": "3"}
+    ],
+    "hints": [
+      "When you find a '1', explore all connected land — what traversal does that suggest?",
+      "Mark visited cells to avoid counting them twice."
+    ],
+    "follow_ups": [
+      "Max area of island. (LC 695)",
+      "How would you solve this if the grid were distributed across multiple machines?"
+    ],
+    "companies": ["amazon", "google", "microsoft"]
+  },
+  {
+    "id": "lc-322",
+    "title": "Coin Change",
+    "difficulty": "medium",
+    "tags": ["dynamic-programming", "bfs"],
+    "description": "You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money.\n\nReturn the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return `-1`.\n\nYou may assume that you have an infinite number of each kind of coin.",
+    "test_cases": [
+      {"input": "coins = [1,5,11], amount = 15", "output": "3"},
+      {"input": "coins = [2], amount = 3", "output": "-1"}
+    ],
+    "hints": [
+      "Why does greedy (always pick the largest coin) fail? Think of a counterexample.",
+      "Define dp[i] as the minimum coins to make amount i. How does dp[i] relate to dp[i - coin] for each coin?"
+    ],
+    "follow_ups": [
+      "How many combinations make exactly amount? (LC 518)",
+      "What if each coin can only be used once?"
+    ],
+    "companies": ["amazon", "google", "bloomberg"]
+  },
+  {
+    "id": "lc-102",
+    "title": "Binary Tree Level Order Traversal",
+    "difficulty": "medium",
+    "tags": ["tree", "bfs"],
+    "description": "Given the `root` of a binary tree, return the level order traversal of its nodes' values (i.e., from left to right, level by level).",
+    "test_cases": [
+      {"input": "root = [3,9,20,null,null,15,7]", "output": "[[3],[9,20],[15,7]]"},
+      {"input": "root = [1]", "output": "[[1]]"},
+      {"input": "root = []", "output": "[]"}
+    ],
+    "hints": [
+      "Which traversal naturally processes nodes level by level?",
+      "How do you know when one level ends and the next begins in your queue?"
+    ],
+    "follow_ups": [
+      "Zigzag level order traversal. (LC 103)",
+      "Right side view of a binary tree. (LC 199)"
+    ],
+    "companies": ["amazon", "microsoft", "bloomberg"]
+  },
+  {
+    "id": "lc-153",
+    "title": "Find Minimum in Rotated Sorted Array",
+    "difficulty": "medium",
+    "tags": ["array", "binary-search"],
+    "description": "Suppose an array of length `n` sorted in ascending order is rotated between `1` and `n` times. For example, the array `nums = [0,1,2,4,5,6,7]` might become `[4,5,6,7,0,1,2]`.\n\nGiven the sorted rotated array `nums` of unique elements, return the minimum element of this array.\n\nYou must write an algorithm that runs in `O(log n)` time.",
+    "test_cases": [
+      {"input": "nums = [3,4,5,1,2]", "output": "1"},
+      {"input": "nums = [4,5,6,7,0,1,2]", "output": "0"},
+      {"input": "nums = [11,13,15,17]", "output": "11"}
+    ],
+    "hints": [
+      "The minimum is at the inflection point — where the array 'resets'.",
+      "Compare mid with right: if nums[mid] > nums[right], the minimum is in the right half. Why?"
+    ],
+    "follow_ups": [
+      "Search for a specific target in the rotated array. (LC 33)",
+      "What if there are duplicates? (LC 154)"
+    ],
+    "companies": ["microsoft", "amazon", "facebook"]
+  },
+  {
+    "id": "lc-238",
+    "title": "Product of Array Except Self",
+    "difficulty": "medium",
+    "tags": ["array", "prefix-product"],
+    "description": "Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`.\n\nThe product of any prefix or suffix of `nums` is guaranteed to fit in a 32-bit integer.\n\nYou must write an algorithm that runs in `O(n)` time and without using the division operation.",
+    "test_cases": [
+      {"input": "nums = [1,2,3,4]", "output": "[24,12,8,6]"},
+      {"input": "nums = [-1,1,0,-3,3]", "output": "[0,0,9,0,0]"}
+    ],
+    "hints": [
+      "For each position i, you need the product of everything to the left AND everything to the right.",
+      "Compute left products in one pass, right products in another. Can you combine them without extra space?"
+    ],
+    "follow_ups": [
+      "What if division were allowed — how would that change things? Watch out for zeros.",
+      "What if the array could be very large and you needed to minimise memory?"
+    ],
+    "companies": ["amazon", "linkedin", "microsoft"]
+  },
+  {
+    "id": "lc-739",
+    "title": "Daily Temperatures",
+    "difficulty": "medium",
+    "tags": ["stack", "monotonic-stack", "array"],
+    "description": "Given an array of integers `temperatures` represents the daily temperatures, return an array `answer` such that `answer[i]` is the number of days you have to wait after the `i`th day to get a warmer temperature. If there is no future day for which this is possible, keep `answer[i] == 0` instead.",
+    "test_cases": [
+      {"input": "temperatures = [73,74,75,71,69,72,76,73]", "output": "[1,1,4,2,1,1,0,0]"},
+      {"input": "temperatures = [30,40,50,60]", "output": "[1,1,1,0]"},
+      {"input": "temperatures = [30,60,90]", "output": "[1,1,0]"}
+    ],
+    "hints": [
+      "Brute force O(n²) is straightforward — can you do better?",
+      "Think about using a stack of indices of temperatures that haven't found a warmer day yet."
+    ],
+    "follow_ups": [
+      "Next greater element. (LC 496)",
+      "What pattern does the monotonic stack solve in general?"
+    ],
+    "companies": ["amazon", "yahoo", "bloomberg"]
+  },
+  {
+    "id": "lc-79",
+    "title": "Word Search",
+    "difficulty": "medium",
+    "tags": ["dfs", "backtracking", "matrix"],
+    "description": "Given an `m x n` grid of characters `board` and a string `word`, return `true` if `word` exists in the grid.\n\nThe word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.",
+    "test_cases": [
+      {"input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCCED\"", "output": "true"},
+      {"input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"SEE\"", "output": "true"},
+      {"input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCB\"", "output": "false"}
+    ],
+    "hints": [
+      "This is DFS + backtracking. At each cell, try all 4 directions.",
+      "You need to mark cells as visited during a path — how do you unmark them when backtracking?"
+    ],
+    "follow_ups": [
+      "Find all words in the board from a dictionary. (LC 212 — uses Trie)",
+      "What's the worst-case time complexity of your solution?"
+    ],
+    "companies": ["amazon", "microsoft", "snapchat"]
+  },
+  {
+    "id": "lc-98",
+    "title": "Validate Binary Search Tree",
+    "difficulty": "medium",
+    "tags": ["tree", "dfs", "recursion"],
+    "description": "Given the `root` of a binary tree, determine if it is a valid binary search tree (BST).\n\nA valid BST is defined as follows:\n- The left subtree of a node contains only nodes with keys less than the node's key.\n- The right subtree of a node contains only nodes with keys greater than the node's key.\n- Both the left and right subtrees must also be binary search trees.",
+    "test_cases": [
+      {"input": "root = [2,1,3]", "output": "true"},
+      {"input": "root = [5,1,4,null,null,3,6]", "output": "false"}
+    ],
+    "hints": [
+      "Just checking left < root < right is not sufficient. Can you think of a counterexample?",
+      "Pass down the valid range [min, max] for each node as you recurse."
+    ],
+    "follow_ups": [
+      "Find the kth smallest element in a BST. (LC 230)",
+      "Recover a BST where exactly two nodes are swapped. (LC 99)"
+    ],
+    "companies": ["amazon", "bloomberg", "microsoft"]
+  },
+  {
+    "id": "lc-417",
+    "title": "Pacific Atlantic Water Flow",
+    "difficulty": "medium",
+    "tags": ["dfs", "bfs", "matrix"],
+    "description": "There is an `m x n` rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.\n\nWater can only flow to neighboring cells (north, south, east, west) with height less than or equal to the current cell's height.\n\nReturn a list of grid coordinates `result` where `result[i] = [ri, ci]` denotes that water can flow from cell `(ri, ci)` to both the Pacific and Atlantic oceans.",
+    "test_cases": [
+      {"input": "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]", "output": "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]"}
+    ],
+    "hints": [
+      "Instead of finding which cells can reach each ocean, reverse the direction — start from the oceans and flow uphill.",
+      "Run two BFS/DFS — one from Pacific borders, one from Atlantic borders. The answer is the intersection."
+    ],
+    "follow_ups": [
+      "What if water could flow in all 8 directions?",
+      "How does reversing the direction of flow simplify this problem?"
+    ],
+    "companies": ["google", "amazon"]
+  },
+  {
+    "id": "lc-435",
+    "title": "Non-overlapping Intervals",
+    "difficulty": "medium",
+    "tags": ["array", "greedy", "sorting"],
+    "description": "Given an array of intervals `intervals` where `intervals[i] = [starti, endi]`, return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.",
+    "test_cases": [
+      {"input": "intervals = [[1,2],[2,3],[3,4],[1,3]]", "output": "1"},
+      {"input": "intervals = [[1,2],[1,2],[1,2]]", "output": "2"},
+      {"input": "intervals = [[1,2],[2,3]]", "output": "0"}
+    ],
+    "hints": [
+      "Think about the equivalent problem: what is the maximum number of non-overlapping intervals you can keep?",
+      "Sort by end time. Greedy: always keep the interval that ends earliest."
+    ],
+    "follow_ups": [
+      "Why does sorting by end time (not start time) give the optimal greedy choice?",
+      "Meeting rooms II — minimum rooms needed. (LC 253)"
+    ],
+    "companies": ["google", "bloomberg"]
+  },
+  {
+    "id": "lc-297",
+    "title": "Serialize and Deserialize Binary Tree",
+    "difficulty": "hard",
+    "tags": ["tree", "design", "bfs", "dfs"],
+    "description": "Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.\n\nDesign an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.",
+    "test_cases": [
+      {"input": "root = [1,2,3,null,null,4,5]", "output": "[1,2,3,null,null,4,5]"}
+    ],
+    "hints": [
+      "Preorder traversal (root → left → right) with null markers uniquely determines a tree.",
+      "During deserialization, use a queue or index to consume tokens in the same order."
+    ],
+    "follow_ups": [
+      "Why does preorder + null markers work but inorder + null markers does not?",
+      "Serialize/deserialize a BST more compactly. (LC 449)"
+    ],
+    "companies": ["google", "amazon", "facebook", "linkedin"]
+  },
+  {
+    "id": "lc-239",
+    "title": "Sliding Window Maximum",
+    "difficulty": "hard",
+    "tags": ["sliding-window", "monotonic-deque", "array"],
+    "description": "You are given an array of integers `nums`, there is a sliding window of size `k` which is moving from the very left of the array to the very right. You can only see the `k` numbers in the window. Each time the sliding window moves right by one position.\n\nReturn the max sliding window.",
+    "test_cases": [
+      {"input": "nums = [1,3,-1,-3,5,3,6,7], k = 3", "output": "[3,3,5,5,6,7]"},
+      {"input": "nums = [1], k = 1", "output": "[1]"}
+    ],
+    "hints": [
+      "O(nk) brute force is straightforward. How do we avoid re-scanning the window each time?",
+      "Use a deque that stores indices. What invariant should this deque maintain to give you the max in O(1)?"
+    ],
+    "follow_ups": [
+      "Sliding window minimum — any change needed?",
+      "What's the tradeoff between this deque approach vs a heap approach?"
+    ],
+    "companies": ["amazon", "google", "bytedance"]
+  },
+  {
+    "id": "lc-23",
+    "title": "Merge K Sorted Lists",
+    "difficulty": "hard",
+    "tags": ["linked-list", "heap", "divide-and-conquer"],
+    "description": "You are given an array of `k` linked-lists `lists`, each linked-list is sorted in ascending order.\n\nMerge all the linked-lists into one sorted linked-list and return it.",
+    "test_cases": [
+      {"input": "lists = [[1,4,5],[1,3,4],[2,6]]", "output": "[1,1,2,3,4,4,5,6]"},
+      {"input": "lists = []", "output": "[]"},
+      {"input": "lists = [[]]", "output": "[]"}
+    ],
+    "hints": [
+      "You already know how to merge two sorted lists. Can you extend that?",
+      "A min-heap always gives you the smallest current element across all k lists in O(log k)."
+    ],
+    "follow_ups": [
+      "What's the time complexity of the heap approach vs the divide-and-conquer approach?",
+      "Find the median of k sorted arrays."
+    ],
+    "companies": ["amazon", "google", "facebook", "microsoft"]
+  },
+  {
+    "id": "lc-42",
+    "title": "Trapping Rain Water",
+    "difficulty": "hard",
+    "tags": ["array", "two-pointers", "stack", "dynamic-programming"],
+    "description": "Given `n` non-negative integers representing an elevation map where the width of each bar is `1`, compute how much water it can trap after raining.",
+    "test_cases": [
+      {"input": "height = [0,1,0,2,1,0,1,3,2,1,2,1]", "output": "6"},
+      {"input": "height = [4,2,0,3,2,5]", "output": "9"}
+    ],
+    "hints": [
+      "Water at position i is limited by min(max height to the left, max height to the right) minus height[i].",
+      "Precomputing left_max and right_max arrays gives an O(n) solution. Can you do it with O(1) extra space?"
+    ],
+    "follow_ups": [
+      "Trapping Rain Water II (3D elevation map). (LC 407)",
+      "Explain the two-pointer approach and why it works."
+    ],
+    "companies": ["amazon", "google", "microsoft", "bloomberg"]
+  },
+  {
+    "id": "lc-76",
+    "title": "Minimum Window Substring",
+    "difficulty": "hard",
+    "tags": ["sliding-window", "hash-map", "string"],
+    "description": "Given two strings `s` and `t` of lengths `m` and `n` respectively, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window. If there is no such substring, return the empty string `\"\"`.",
+    "test_cases": [
+      {"input": "s = \"ADOBECODEBANC\", t = \"ABC\"", "output": "\"BANC\""},
+      {"input": "s = \"a\", t = \"a\"", "output": "\"a\""},
+      {"input": "s = \"a\", t = \"aa\"", "output": "\"\""}
+    ],
+    "hints": [
+      "Expand the right pointer until you have all required chars; then shrink the left pointer to minimise.",
+      "Track how many unique characters have met their required count to know when the window is valid."
+    ],
+    "follow_ups": [
+      "What's the time complexity? Can it be better than O(m + n)?",
+      "Substring with concatenation of all words. (LC 30)"
+    ],
+    "companies": ["facebook", "linkedin", "snapchat", "amazon"]
+  }
+]
