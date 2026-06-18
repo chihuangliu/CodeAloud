@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, KeyboardEvent } from 'react'
+import Markdown from 'react-markdown'
 import type { Message } from '../hooks/useInterview'
 
 interface Props {
@@ -35,13 +36,34 @@ export function ChatPanel({ messages, isStreaming, onSend }: Props) {
         {messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div
-              className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${
+              className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
                 msg.role === 'user'
-                  ? 'bg-blue-600 text-white rounded-br-sm'
+                  ? 'bg-blue-600 text-white rounded-br-sm whitespace-pre-wrap'
                   : 'bg-gray-700 text-gray-100 rounded-bl-sm'
               } ${msg.streaming ? 'opacity-90' : ''}`}
             >
-              {msg.content}
+              {msg.role === 'user' ? (
+                msg.content
+              ) : (
+                <Markdown
+                  components={{
+                    pre: ({ children }) => <pre className="bg-gray-900 rounded-md p-3 my-2 overflow-x-auto text-xs">{children}</pre>,
+                    code: ({ children, className }) =>
+                      className
+                        ? <code className={className}>{children}</code>
+                        : <code className="bg-gray-900 px-1.5 py-0.5 rounded text-xs">{children}</code>,
+                    table: ({ children }) => <table className="border-collapse my-2 w-full text-xs">{children}</table>,
+                    th: ({ children }) => <th className="border border-gray-600 px-2 py-1 text-left">{children}</th>,
+                    td: ({ children }) => <td className="border border-gray-600 px-2 py-1">{children}</td>,
+                    ol: ({ children }) => <ol className="list-decimal list-inside my-1 space-y-0.5">{children}</ol>,
+                    ul: ({ children }) => <ul className="list-disc list-inside my-1 space-y-0.5">{children}</ul>,
+                    blockquote: ({ children }) => <blockquote className="border-l-2 border-gray-500 pl-3 my-2 italic text-gray-300">{children}</blockquote>,
+                    p: ({ children }) => <p className="my-1">{children}</p>,
+                  }}
+                >
+                  {msg.content}
+                </Markdown>
+              )}
               {msg.streaming && <span className="inline-block w-1.5 h-3.5 ml-0.5 bg-current animate-pulse rounded-sm" />}
             </div>
           </div>
