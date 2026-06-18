@@ -20,6 +20,7 @@ class AnthropicClient:
             model=self._model,
             max_tokens=1024,
             system=system,
+            cache_control={"type": "ephemeral"},
             messages=messages,
         ) as s:
             async for text in s.text_stream:
