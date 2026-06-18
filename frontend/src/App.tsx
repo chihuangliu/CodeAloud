@@ -29,8 +29,8 @@ function Lobby({ onStart }: { onStart: (id: string) => void }) {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold text-white mb-1">codeAloud</h1>
-        <p className="text-gray-400 mb-8">Practice coding interviews with AI interviewer Alex</p>
+        <h1 className="text-3xl font-bold text-white mb-1">CodeAloud</h1>
+        <p className="text-gray-400 mb-8">Practice coding interviews with a conversational AI interviewer</p>
 
         <div className="flex gap-2 mb-6">
           {['all', 'easy', 'medium', 'hard'].map((d) => (

@@ -23,8 +23,7 @@ export function InterviewSession({
       {/* Header */}
       <header className="flex items-center justify-between px-5 py-3 bg-gray-800 border-b border-gray-700 shrink-0">
         <div className="flex items-center gap-3">
-          <span className="text-blue-400 font-bold text-lg">codeAloud</span>
-          <span className="text-gray-500 text-sm">with Alex</span>
+          <span className="text-blue-400 font-bold text-lg">CodeAloud</span>
         </div>
         <div className="flex items-center gap-4">
           <span className="font-mono text-gray-300">{timer}</span>
