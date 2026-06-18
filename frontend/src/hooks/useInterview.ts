@@ -76,8 +76,11 @@ export function useInterview() {
 
     while (true) {
       const { done, value } = await reader.read()
-      if (done) break
-      buffer += decoder.decode(value, { stream: true })
+      if (done) {
+        buffer += decoder.decode()
+      } else {
+        buffer += decoder.decode(value, { stream: true })
+      }
       const lines = buffer.split('\n')
       buffer = lines.pop() ?? ''
 
@@ -92,6 +95,7 @@ export function useInterview() {
           finaliseStreaming()
         }
       }
+      if (done) break
     }
 
     setSessionId(sid)
@@ -114,8 +118,11 @@ export function useInterview() {
 
     while (true) {
       const { done, value } = await reader.read()
-      if (done) break
-      buffer += decoder.decode(value, { stream: true })
+      if (done) {
+        buffer += decoder.decode()
+      } else {
+        buffer += decoder.decode(value, { stream: true })
+      }
       const lines = buffer.split('\n')
       buffer = lines.pop() ?? ''
 
@@ -127,21 +134,33 @@ export function useInterview() {
         if (parsed.text) appendStreaming(parsed.text)
         if (parsed.done) finaliseStreaming()
       }
+      if (done) break
     }
   }, [sessionId, isStreaming, appendStreaming, finaliseStreaming])
 
-  const runCode = useCallback(async (language = 'python') => {
-    if (!sessionId) return
+  const runCode = useCallback(async () => {
+    if (!sessionId) {
+      setExecutionOutput('[Error: no session — start an interview first]')
+      return
+    }
     setExecutionOutput('Running...')
-    const res = await fetch(`${API}/code/execute`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ session_id: sessionId, code, language }),
-    })
-    const data = await res.json()
-    const output = data.stdout || data.stderr || `[${data.status}]`
-    setExecutionOutput(output)
-    await sendMessage("I just ran my code.", true)
+    try {
+      const res = await fetch(`${API}/code/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_id: sessionId, code, language: 'python' }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setExecutionOutput(`[Error: ${data.detail ?? res.statusText}]`)
+        return
+      }
+      const output = data.stdout || data.stderr || `[${data.status}]`
+      setExecutionOutput(output)
+      await sendMessage("I just ran my code.", true)
+    } catch (err) {
+      setExecutionOutput(`[Error: ${err instanceof Error ? err.message : 'unknown'}]`)
+    }
   }, [sessionId, code, sendMessage])
 
   const endInterview = useCallback(async () => {

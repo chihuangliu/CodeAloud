@@ -77,14 +77,6 @@ Browser
                       (session:* keys, 2h TTL)
 ```
 
-**Key design decisions:**
-
-- **SSE over WebSocket** — Claude streams tokens unidirectionally; `fetch()` + `ReadableStream` on the client (not `EventSource`, which doesn't support POST)
-- **Code injection on demand** — code is only sent to Claude when the user clicks Run or says "done", not on every keystroke
-- **Sliding window** — only the last 20 messages are sent to the LLM to bound token cost (~$0.22/session)
-- **Judge0 sandboxing** — `isolate` tool uses Linux namespaces + cgroups + seccomp inside a `--privileged` Docker container; same stack as Codeforces/IOI
-- **Two Redis instances** — app sessions (`redis:7`) and Judge0's internal queue (`redis:6.0` with auth) are kept separate
-
 ## Roadmap
 
 - [x] MVP: text interview loop + code execution
