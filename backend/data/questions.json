@@ -6,9 +6,9 @@
     "tags": ["hash-map", "array"],
     "description": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nYou can return the answer in any order.",
     "test_cases": [
-      {"input": "nums = [2,7,11,15], target = 9", "output": "[0,1]"},
-      {"input": "nums = [3,2,4], target = 6", "output": "[1,2]"},
-      {"input": "nums = [3,3], target = 6", "output": "[0,1]"}
+      {"input": "nums = [2,7,11,15], target = 9", "output": "[0, 1]"},
+      {"input": "nums = [3,2,4], target = 6", "output": "[1, 2]"},
+      {"input": "nums = [3,3], target = 6", "output": "[0, 1]"}
     ],
     "hints": [
       "Start with the brute force O(n²) approach first — get something working.",
@@ -18,7 +18,11 @@
       "What if the array were sorted — could you do it in O(1) space?",
       "What if you needed to return all pairs that sum to target, not just one?"
     ],
-    "companies": ["google", "amazon", "meta"]
+    "companies": ["google", "amazon", "meta"],
+    "function_name": "twoSum",
+    "params": [{"name": "nums", "type": "List[int]"}, {"name": "target", "type": "int"}],
+    "return_type": "List[int]",
+    "starter_code": "def twoSum(nums, target):\n    pass"
   },
   {
     "id": "lc-20",
@@ -40,7 +44,11 @@
       "What if the string could also contain wildcard `*` that can be `(`, `)`, or empty?",
       "How would you handle very long strings efficiently?"
     ],
-    "companies": ["google", "meta", "amazon"]
+    "companies": ["google", "meta", "amazon"],
+    "function_name": "isValid",
+    "params": [{"name": "s", "type": "str"}],
+    "return_type": "bool",
+    "starter_code": "def isValid(s):\n    pass"
   },
   {
     "id": "lc-70",
@@ -61,7 +69,11 @@
       "What if you could climb 1, 2, or 3 steps at a time?",
       "What is the minimum cost to reach the top if each step has a cost? (LC 746)"
     ],
-    "companies": ["amazon", "google", "apple"]
+    "companies": ["amazon", "google", "apple"],
+    "function_name": "climbStairs",
+    "params": [{"name": "n", "type": "int"}],
+    "return_type": "int",
+    "starter_code": "def climbStairs(n):\n    pass"
   },
   {
     "id": "lc-121",
@@ -81,7 +93,11 @@
       "What if you could make at most 2 transactions? (LC 123)",
       "What if you could make unlimited transactions? (LC 122)"
     ],
-    "companies": ["amazon", "bloomberg", "microsoft"]
+    "companies": ["amazon", "bloomberg", "microsoft"],
+    "function_name": "maxProfit",
+    "params": [{"name": "prices", "type": "List[int]"}],
+    "return_type": "int",
+    "starter_code": "def maxProfit(prices):\n    pass"
   },
   {
     "id": "lc-141",
@@ -102,7 +118,11 @@
       "Can you find where the cycle begins? (LC 142)",
       "What's the length of the cycle?"
     ],
-    "companies": ["amazon", "microsoft", "yahoo"]
+    "companies": ["amazon", "microsoft", "yahoo"],
+    "function_name": "hasCycle",
+    "params": [{"name": "head", "type": "CycledListNode"}, {"name": "pos", "type": "int"}],
+    "return_type": "bool",
+    "starter_code": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef hasCycle(head):\n    pass"
   },
   {
     "id": "lc-206",
@@ -111,8 +131,8 @@
     "tags": ["linked-list", "recursion"],
     "description": "Given the `head` of a singly linked list, reverse the list, and return the reversed list.",
     "test_cases": [
-      {"input": "head = [1,2,3,4,5]", "output": "[5,4,3,2,1]"},
-      {"input": "head = [1,2]", "output": "[2,1]"},
+      {"input": "head = [1,2,3,4,5]", "output": "[5, 4, 3, 2, 1]"},
+      {"input": "head = [1,2]", "output": "[2, 1]"},
       {"input": "head = []", "output": "[]"}
     ],
     "hints": [
@@ -123,7 +143,11 @@
       "Can you do it recursively? What's the call stack depth?",
       "Reverse only nodes between positions left and right. (LC 92)"
     ],
-    "companies": ["apple", "adobe", "amazon"]
+    "companies": ["apple", "adobe", "amazon"],
+    "function_name": "reverseList",
+    "params": [{"name": "head", "type": "ListNode"}],
+    "return_type": "ListNode",
+    "starter_code": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef reverseList(head):\n    pass"
   },
   {
     "id": "lc-226",
@@ -132,8 +156,8 @@
     "tags": ["tree", "recursion", "bfs"],
     "description": "Given the `root` of a binary tree, invert the tree, and return its root.",
     "test_cases": [
-      {"input": "root = [4,2,7,1,3,6,9]", "output": "[4,7,2,9,6,3,1]"},
-      {"input": "root = [2,1,3]", "output": "[2,3,1]"},
+      {"input": "root = [4,2,7,1,3,6,9]", "output": "[4, 7, 2, 9, 6, 3, 1]"},
+      {"input": "root = [2,1,3]", "output": "[2, 3, 1]"},
       {"input": "root = []", "output": "[]"}
     ],
     "hints": [
@@ -144,7 +168,11 @@
       "Can you do it iteratively using a queue (BFS)?",
       "What is the time and space complexity of each approach?"
     ],
-    "companies": ["google", "uber", "airbnb"]
+    "companies": ["google", "uber", "airbnb"],
+    "function_name": "invertTree",
+    "params": [{"name": "root", "type": "TreeNode"}],
+    "return_type": "TreeNode",
+    "starter_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef invertTree(root):\n    pass"
   },
   {
     "id": "lc-242",
@@ -164,7 +192,11 @@
       "What if the inputs could contain Unicode characters?",
       "Find all groups of anagrams in a list of strings. (LC 49)"
     ],
-    "companies": ["amazon", "bloomberg", "uber"]
+    "companies": ["amazon", "bloomberg", "uber"],
+    "function_name": "isAnagram",
+    "params": [{"name": "s", "type": "str"}, {"name": "t", "type": "str"}],
+    "return_type": "bool",
+    "starter_code": "def isAnagram(s, t):\n    pass"
   },
   {
     "id": "lc-704",
@@ -184,7 +216,11 @@
       "Find the first and last position of target. (LC 34)",
       "Search in a rotated sorted array. (LC 33)"
     ],
-    "companies": ["bloomberg", "facebook", "microsoft"]
+    "companies": ["bloomberg", "facebook", "microsoft"],
+    "function_name": "search",
+    "params": [{"name": "nums", "type": "List[int]"}, {"name": "target", "type": "int"}],
+    "return_type": "int",
+    "starter_code": "def search(nums, target):\n    pass"
   },
   {
     "id": "lc-733",
@@ -193,8 +229,8 @@
     "tags": ["dfs", "bfs", "matrix"],
     "description": "An image is represented by an `m x n` integer grid `image` where `image[i][j]` represents the pixel value of the image.\n\nYou are also given three integers `sr`, `sc`, and `color`. Perform a flood fill starting from the pixel `image[sr][sc]`.\n\nTo perform a flood fill, consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, and change the color of all of the aforementioned pixels to `color`.",
     "test_cases": [
-      {"input": "image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2", "output": "[[2,2,2],[2,2,0],[2,0,1]]"},
-      {"input": "image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0", "output": "[[0,0,0],[0,0,0]]"}
+      {"input": "image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2", "output": "[[2, 2, 2], [2, 2, 0], [2, 0, 1]]"},
+      {"input": "image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0", "output": "[[0, 0, 0], [0, 0, 0]]"}
     ],
     "hints": [
       "This is just a graph traversal — BFS or DFS both work.",
@@ -204,7 +240,11 @@
       "How would you extend this to 8-directional connectivity?",
       "Number of islands uses the same pattern. (LC 200)"
     ],
-    "companies": ["google", "amazon"]
+    "companies": ["google", "amazon"],
+    "function_name": "floodFill",
+    "params": [{"name": "image", "type": "List[List[int]]"}, {"name": "sr", "type": "int"}, {"name": "sc", "type": "int"}, {"name": "color", "type": "int"}],
+    "return_type": "List[List[int]]",
+    "starter_code": "def floodFill(image, sr, sc, color):\n    pass"
   },
   {
     "id": "lc-146",
@@ -223,7 +263,11 @@
       "Implement an LFU (Least Frequently Used) cache. (LC 460)",
       "How would you make this thread-safe?"
     ],
-    "companies": ["amazon", "google", "microsoft", "meta"]
+    "companies": ["amazon", "google", "microsoft", "meta"],
+    "function_name": null,
+    "params": [],
+    "return_type": "",
+    "starter_code": "class LRUCache:\n    def __init__(self, capacity):\n        pass\n\n    def get(self, key):\n        pass\n\n    def put(self, key, value):\n        pass"
   },
   {
     "id": "lc-3",
@@ -244,7 +288,11 @@
       "What if you could allow at most k repeating characters? (LC 340)",
       "What if the string contains Unicode?"
     ],
-    "companies": ["amazon", "bloomberg", "adobe"]
+    "companies": ["amazon", "bloomberg", "adobe"],
+    "function_name": "lengthOfLongestSubstring",
+    "params": [{"name": "s", "type": "str"}],
+    "return_type": "int",
+    "starter_code": "def lengthOfLongestSubstring(s):\n    pass"
   },
   {
     "id": "lc-56",
@@ -253,8 +301,8 @@
     "tags": ["array", "sorting", "greedy"],
     "description": "Given an array of `intervals` where `intervals[i] = [starti, endi]`, merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
     "test_cases": [
-      {"input": "intervals = [[1,3],[2,6],[8,10],[15,18]]", "output": "[[1,6],[8,10],[15,18]]"},
-      {"input": "intervals = [[1,4],[4,5]]", "output": "[[1,5]]"}
+      {"input": "intervals = [[1,3],[2,6],[8,10],[15,18]]", "output": "[[1, 6], [8, 10], [15, 18]]"},
+      {"input": "intervals = [[1,4],[4,5]]", "output": "[[1, 5]]"}
     ],
     "hints": [
       "Sorting by start time first makes this much simpler — why?",
@@ -264,7 +312,11 @@
       "Insert a new interval and merge. (LC 57)",
       "How many meeting rooms do you need? (LC 253)"
     ],
-    "companies": ["google", "facebook", "twitter"]
+    "companies": ["google", "facebook", "twitter"],
+    "function_name": "merge",
+    "params": [{"name": "intervals", "type": "List[List[int]]"}],
+    "return_type": "List[List[int]]",
+    "starter_code": "def merge(intervals):\n    pass"
   },
   {
     "id": "lc-200",
@@ -273,7 +325,7 @@
     "tags": ["dfs", "bfs", "union-find", "matrix"],
     "description": "Given an `m x n` 2D binary grid `grid` which represents a map of `'1'`s (land) and `'0'`s (water), return the number of islands.\n\nAn island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.",
     "test_cases": [
-      {"input": "grid = [[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]", "output": "4"},
+      {"input": "grid = [[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]", "output": "1"},
       {"input": "grid = [[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"1\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"1\",\"1\"]]", "output": "3"}
     ],
     "hints": [
@@ -284,7 +336,11 @@
       "Max area of island. (LC 695)",
       "How would you solve this if the grid were distributed across multiple machines?"
     ],
-    "companies": ["amazon", "google", "microsoft"]
+    "companies": ["amazon", "google", "microsoft"],
+    "function_name": "numIslands",
+    "params": [{"name": "grid", "type": "List[List[str]]"}],
+    "return_type": "int",
+    "starter_code": "def numIslands(grid):\n    pass"
   },
   {
     "id": "lc-322",
@@ -304,7 +360,11 @@
       "How many combinations make exactly amount? (LC 518)",
       "What if each coin can only be used once?"
     ],
-    "companies": ["amazon", "google", "bloomberg"]
+    "companies": ["amazon", "google", "bloomberg"],
+    "function_name": "coinChange",
+    "params": [{"name": "coins", "type": "List[int]"}, {"name": "amount", "type": "int"}],
+    "return_type": "int",
+    "starter_code": "def coinChange(coins, amount):\n    pass"
   },
   {
     "id": "lc-102",
@@ -313,7 +373,7 @@
     "tags": ["tree", "bfs"],
     "description": "Given the `root` of a binary tree, return the level order traversal of its nodes' values (i.e., from left to right, level by level).",
     "test_cases": [
-      {"input": "root = [3,9,20,null,null,15,7]", "output": "[[3],[9,20],[15,7]]"},
+      {"input": "root = [3,9,20,null,null,15,7]", "output": "[[3], [9, 20], [15, 7]]"},
       {"input": "root = [1]", "output": "[[1]]"},
       {"input": "root = []", "output": "[]"}
     ],
@@ -325,7 +385,11 @@
       "Zigzag level order traversal. (LC 103)",
       "Right side view of a binary tree. (LC 199)"
     ],
-    "companies": ["amazon", "microsoft", "bloomberg"]
+    "companies": ["amazon", "microsoft", "bloomberg"],
+    "function_name": "levelOrder",
+    "params": [{"name": "root", "type": "TreeNode"}],
+    "return_type": "List[List[int]]",
+    "starter_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef levelOrder(root):\n    pass"
   },
   {
     "id": "lc-153",
@@ -346,7 +410,11 @@
       "Search for a specific target in the rotated array. (LC 33)",
       "What if there are duplicates? (LC 154)"
     ],
-    "companies": ["microsoft", "amazon", "facebook"]
+    "companies": ["microsoft", "amazon", "facebook"],
+    "function_name": "findMin",
+    "params": [{"name": "nums", "type": "List[int]"}],
+    "return_type": "int",
+    "starter_code": "def findMin(nums):\n    pass"
   },
   {
     "id": "lc-238",
@@ -355,8 +423,8 @@
     "tags": ["array", "prefix-product"],
     "description": "Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`.\n\nThe product of any prefix or suffix of `nums` is guaranteed to fit in a 32-bit integer.\n\nYou must write an algorithm that runs in `O(n)` time and without using the division operation.",
     "test_cases": [
-      {"input": "nums = [1,2,3,4]", "output": "[24,12,8,6]"},
-      {"input": "nums = [-1,1,0,-3,3]", "output": "[0,0,9,0,0]"}
+      {"input": "nums = [1,2,3,4]", "output": "[24, 12, 8, 6]"},
+      {"input": "nums = [-1,1,0,-3,3]", "output": "[0, 0, 9, 0, 0]"}
     ],
     "hints": [
       "For each position i, you need the product of everything to the left AND everything to the right.",
@@ -366,7 +434,11 @@
       "What if division were allowed — how would that change things? Watch out for zeros.",
       "What if the array could be very large and you needed to minimise memory?"
     ],
-    "companies": ["amazon", "linkedin", "microsoft"]
+    "companies": ["amazon", "linkedin", "microsoft"],
+    "function_name": "productExceptSelf",
+    "params": [{"name": "nums", "type": "List[int]"}],
+    "return_type": "List[int]",
+    "starter_code": "def productExceptSelf(nums):\n    pass"
   },
   {
     "id": "lc-739",
@@ -375,9 +447,9 @@
     "tags": ["stack", "monotonic-stack", "array"],
     "description": "Given an array of integers `temperatures` represents the daily temperatures, return an array `answer` such that `answer[i]` is the number of days you have to wait after the `i`th day to get a warmer temperature. If there is no future day for which this is possible, keep `answer[i] == 0` instead.",
     "test_cases": [
-      {"input": "temperatures = [73,74,75,71,69,72,76,73]", "output": "[1,1,4,2,1,1,0,0]"},
-      {"input": "temperatures = [30,40,50,60]", "output": "[1,1,1,0]"},
-      {"input": "temperatures = [30,60,90]", "output": "[1,1,0]"}
+      {"input": "temperatures = [73,74,75,71,69,72,76,73]", "output": "[1, 1, 4, 2, 1, 1, 0, 0]"},
+      {"input": "temperatures = [30,40,50,60]", "output": "[1, 1, 1, 0]"},
+      {"input": "temperatures = [30,60,90]", "output": "[1, 1, 0]"}
     ],
     "hints": [
       "Brute force O(n²) is straightforward — can you do better?",
@@ -387,7 +459,11 @@
       "Next greater element. (LC 496)",
       "What pattern does the monotonic stack solve in general?"
     ],
-    "companies": ["amazon", "yahoo", "bloomberg"]
+    "companies": ["amazon", "yahoo", "bloomberg"],
+    "function_name": "dailyTemperatures",
+    "params": [{"name": "temperatures", "type": "List[int]"}],
+    "return_type": "List[int]",
+    "starter_code": "def dailyTemperatures(temperatures):\n    pass"
   },
   {
     "id": "lc-79",
@@ -408,7 +484,11 @@
       "Find all words in the board from a dictionary. (LC 212 — uses Trie)",
       "What's the worst-case time complexity of your solution?"
     ],
-    "companies": ["amazon", "microsoft", "snapchat"]
+    "companies": ["amazon", "microsoft", "snapchat"],
+    "function_name": "exist",
+    "params": [{"name": "board", "type": "List[List[str]]"}, {"name": "word", "type": "str"}],
+    "return_type": "bool",
+    "starter_code": "def exist(board, word):\n    pass"
   },
   {
     "id": "lc-98",
@@ -428,7 +508,11 @@
       "Find the kth smallest element in a BST. (LC 230)",
       "Recover a BST where exactly two nodes are swapped. (LC 99)"
     ],
-    "companies": ["amazon", "bloomberg", "microsoft"]
+    "companies": ["amazon", "bloomberg", "microsoft"],
+    "function_name": "isValidBST",
+    "params": [{"name": "root", "type": "TreeNode"}],
+    "return_type": "bool",
+    "starter_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef isValidBST(root):\n    pass"
   },
   {
     "id": "lc-417",
@@ -437,7 +521,7 @@
     "tags": ["dfs", "bfs", "matrix"],
     "description": "There is an `m x n` rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.\n\nWater can only flow to neighboring cells (north, south, east, west) with height less than or equal to the current cell's height.\n\nReturn a list of grid coordinates `result` where `result[i] = [ri, ci]` denotes that water can flow from cell `(ri, ci)` to both the Pacific and Atlantic oceans.",
     "test_cases": [
-      {"input": "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]", "output": "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]"}
+      {"input": "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]", "output": "[[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]]"}
     ],
     "hints": [
       "Instead of finding which cells can reach each ocean, reverse the direction — start from the oceans and flow uphill.",
@@ -447,7 +531,11 @@
       "What if water could flow in all 8 directions?",
       "How does reversing the direction of flow simplify this problem?"
     ],
-    "companies": ["google", "amazon"]
+    "companies": ["google", "amazon"],
+    "function_name": "pacificAtlantic",
+    "params": [{"name": "heights", "type": "List[List[int]]"}],
+    "return_type": "List[List[int]]",
+    "starter_code": "def pacificAtlantic(heights):\n    pass"
   },
   {
     "id": "lc-435",
@@ -468,7 +556,11 @@
       "Why does sorting by end time (not start time) give the optimal greedy choice?",
       "Meeting rooms II — minimum rooms needed. (LC 253)"
     ],
-    "companies": ["google", "bloomberg"]
+    "companies": ["google", "bloomberg"],
+    "function_name": "eraseOverlapIntervals",
+    "params": [{"name": "intervals", "type": "List[List[int]]"}],
+    "return_type": "int",
+    "starter_code": "def eraseOverlapIntervals(intervals):\n    pass"
   },
   {
     "id": "lc-128",
@@ -488,7 +580,11 @@
       "What if the array were sorted?",
       "How would a Union-Find approach work here?"
     ],
-    "companies": ["amazon", "google", "facebook"]
+    "companies": ["amazon", "google", "facebook"],
+    "function_name": "longestConsecutive",
+    "params": [{"name": "nums", "type": "List[int]"}],
+    "return_type": "int",
+    "starter_code": "def longestConsecutive(nums):\n    pass"
   },
   {
     "id": "lc-49",
@@ -497,7 +593,7 @@
     "tags": ["hash-map", "string", "sorting"],
     "description": "Given an array of strings `strs`, group the anagrams together. You can return the answer in any order.",
     "test_cases": [
-      {"input": "strs = [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]", "output": "[[\"bat\"],[\"nat\",\"tan\"],[\"ate\",\"eat\",\"tea\"]]"},
+      {"input": "strs = [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]", "output": "[[\"ate\", \"eat\", \"tea\"], [\"bat\"], [\"nat\", \"tan\"]]"},
       {"input": "strs = [\"\"]", "output": "[[\"\"]]"},
       {"input": "strs = [\"a\"]", "output": "[[\"a\"]]"}
     ],
@@ -509,7 +605,11 @@
       "What if you needed the largest group of anagrams?",
       "Can you use a character count tuple as a key instead of sorting?"
     ],
-    "companies": ["amazon", "facebook", "uber"]
+    "companies": ["amazon", "facebook", "uber"],
+    "function_name": "groupAnagrams",
+    "params": [{"name": "strs", "type": "List[str]"}],
+    "return_type": "List[List[str]]",
+    "starter_code": "def groupAnagrams(strs):\n    pass"
   },
   {
     "id": "lc-297",
@@ -518,7 +618,7 @@
     "tags": ["tree", "design", "bfs", "dfs"],
     "description": "Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.\n\nDesign an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.",
     "test_cases": [
-      {"input": "root = [1,2,3,null,null,4,5]", "output": "[1,2,3,null,null,4,5]"}
+      {"input": "root = [1,2,3,null,null,4,5]", "output": "[1, 2, 3, null, null, 4, 5]"}
     ],
     "hints": [
       "Preorder traversal (root → left → right) with null markers uniquely determines a tree.",
@@ -528,7 +628,11 @@
       "Why does preorder + null markers work but inorder + null markers does not?",
       "Serialize/deserialize a BST more compactly. (LC 449)"
     ],
-    "companies": ["google", "amazon", "facebook", "linkedin"]
+    "companies": ["google", "amazon", "facebook", "linkedin"],
+    "function_name": null,
+    "params": [],
+    "return_type": "",
+    "starter_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\nclass Codec:\n    def serialize(self, root):\n        pass\n\n    def deserialize(self, data):\n        pass"
   },
   {
     "id": "lc-239",
@@ -537,7 +641,7 @@
     "tags": ["sliding-window", "monotonic-deque", "array"],
     "description": "You are given an array of integers `nums`, there is a sliding window of size `k` which is moving from the very left of the array to the very right. You can only see the `k` numbers in the window. Each time the sliding window moves right by one position.\n\nReturn the max sliding window.",
     "test_cases": [
-      {"input": "nums = [1,3,-1,-3,5,3,6,7], k = 3", "output": "[3,3,5,5,6,7]"},
+      {"input": "nums = [1,3,-1,-3,5,3,6,7], k = 3", "output": "[3, 3, 5, 5, 6, 7]"},
       {"input": "nums = [1], k = 1", "output": "[1]"}
     ],
     "hints": [
@@ -548,7 +652,11 @@
       "Sliding window minimum — any change needed?",
       "What's the tradeoff between this deque approach vs a heap approach?"
     ],
-    "companies": ["amazon", "google", "bytedance"]
+    "companies": ["amazon", "google", "bytedance"],
+    "function_name": "maxSlidingWindow",
+    "params": [{"name": "nums", "type": "List[int]"}, {"name": "k", "type": "int"}],
+    "return_type": "List[int]",
+    "starter_code": "def maxSlidingWindow(nums, k):\n    pass"
   },
   {
     "id": "lc-23",
@@ -557,7 +665,7 @@
     "tags": ["linked-list", "heap", "divide-and-conquer"],
     "description": "You are given an array of `k` linked-lists `lists`, each linked-list is sorted in ascending order.\n\nMerge all the linked-lists into one sorted linked-list and return it.",
     "test_cases": [
-      {"input": "lists = [[1,4,5],[1,3,4],[2,6]]", "output": "[1,1,2,3,4,4,5,6]"},
+      {"input": "lists = [[1,4,5],[1,3,4],[2,6]]", "output": "[1, 1, 2, 3, 4, 4, 5, 6]"},
       {"input": "lists = []", "output": "[]"},
       {"input": "lists = [[]]", "output": "[]"}
     ],
@@ -569,7 +677,11 @@
       "What's the time complexity of the heap approach vs the divide-and-conquer approach?",
       "Find the median of k sorted arrays."
     ],
-    "companies": ["amazon", "google", "facebook", "microsoft"]
+    "companies": ["amazon", "google", "facebook", "microsoft"],
+    "function_name": "mergeKLists",
+    "params": [{"name": "lists", "type": "List[ListNode]"}],
+    "return_type": "ListNode",
+    "starter_code": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef mergeKLists(lists):\n    pass"
   },
   {
     "id": "lc-42",
@@ -589,7 +701,11 @@
       "Trapping Rain Water II (3D elevation map). (LC 407)",
       "Explain the two-pointer approach and why it works."
     ],
-    "companies": ["amazon", "google", "microsoft", "bloomberg"]
+    "companies": ["amazon", "google", "microsoft", "bloomberg"],
+    "function_name": "trap",
+    "params": [{"name": "height", "type": "List[int]"}],
+    "return_type": "int",
+    "starter_code": "def trap(height):\n    pass"
   },
   {
     "id": "lc-76",
@@ -610,6 +726,10 @@
       "What's the time complexity? Can it be better than O(m + n)?",
       "Substring with concatenation of all words. (LC 30)"
     ],
-    "companies": ["facebook", "linkedin", "snapchat", "amazon"]
+    "companies": ["facebook", "linkedin", "snapchat", "amazon"],
+    "function_name": "minWindow",
+    "params": [{"name": "s", "type": "str"}, {"name": "t", "type": "str"}],
+    "return_type": "str",
+    "starter_code": "def minWindow(s, t):\n    pass"
   }
 ]

@@ -1,11 +1,11 @@
 import { CodeEditor } from './CodeEditor'
 import { ChatPanel } from './ChatPanel'
-import type { Message } from '../hooks/useInterview'
+import type { Message, ExecutionOutput } from '../hooks/useInterview'
 
 interface Props {
   messages: Message[]
   code: string
-  executionOutput: string | null
+  executionOutput: ExecutionOutput | null
   isStreaming: boolean
   timer: string
   onCodeChange: (code: string) => void

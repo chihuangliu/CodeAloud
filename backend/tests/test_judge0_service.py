@@ -45,6 +45,11 @@ class TestLanguageIds:
         assert LANGUAGE_IDS["cpp"] == 54
 
 
+@pytest.fixture(autouse=True)
+def _use_judge0(monkeypatch):
+    monkeypatch.setenv("CODE_RUNNER", "judge0")
+
+
 class TestExecute:
     async def test_returns_stdout_and_status(self):
         response_data = {

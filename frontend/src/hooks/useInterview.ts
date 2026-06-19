@@ -6,6 +6,22 @@ export interface Message {
   streaming?: boolean
 }
 
+export interface TestCaseResult {
+  input: string
+  expected: string
+  actual: string
+  passed: boolean
+}
+
+export interface ExecutionOutput {
+  stdout: string
+  stderr: string
+  status: string
+  test_case_results: TestCaseResult[]
+  passed_count: number
+  total_count: number
+}
+
 export interface EvalReport {
   time_complexity: string
   space_complexity: string
@@ -24,7 +40,7 @@ export function useInterview() {
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
   const [code, setCode] = useState('# Write your solution here\n')
-  const [executionOutput, setExecutionOutput] = useState<string | null>(null)
+  const [executionOutput, setExecutionOutput] = useState<ExecutionOutput | null>(null)
   const [evalReport, setEvalReport] = useState<EvalReport | null>(null)
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
   const [isStreaming, setIsStreaming] = useState(false)
@@ -92,6 +108,7 @@ export function useInterview() {
         if (parsed.text) appendStreaming(parsed.text)
         if (parsed.done) {
           sid = parsed.session_id
+          if (parsed.starter_code) setCode(parsed.starter_code + '\n')
           finaliseStreaming()
         }
       }
@@ -140,10 +157,9 @@ export function useInterview() {
 
   const runCode = useCallback(async () => {
     if (!sessionId) {
-      setExecutionOutput('[Error: no session — start an interview first]')
       return
     }
-    setExecutionOutput('Running...')
+    setExecutionOutput(null)
     try {
       const res = await fetch(`${API}/code/execute`, {
         method: 'POST',
@@ -152,14 +168,19 @@ export function useInterview() {
       })
       const data = await res.json()
       if (!res.ok) {
-        setExecutionOutput(`[Error: ${data.detail ?? res.statusText}]`)
+        setExecutionOutput({
+          stdout: '', stderr: data.detail ?? res.statusText, status: 'Error',
+          test_case_results: [], passed_count: 0, total_count: 0,
+        })
         return
       }
-      const output = data.stdout || data.stderr || `[${data.status}]`
-      setExecutionOutput(output)
+      setExecutionOutput(data)
       await sendMessage("I just ran my code.", true)
     } catch (err) {
-      setExecutionOutput(`[Error: ${err instanceof Error ? err.message : 'unknown'}]`)
+      setExecutionOutput({
+        stdout: '', stderr: err instanceof Error ? err.message : 'unknown', status: 'Error',
+        test_case_results: [], passed_count: 0, total_count: 0,
+      })
     }
   }, [sessionId, code, sendMessage])
 

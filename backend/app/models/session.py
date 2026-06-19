@@ -8,11 +8,21 @@ class Message(BaseModel):
     content: str
 
 
+class TestCaseResult(BaseModel):
+    input: str
+    expected: str
+    actual: str
+    passed: bool
+
+
 class ExecutionResult(BaseModel):
     stdout: str
     stderr: str
     status: str
     time: str | None = None
+    test_case_results: list[TestCaseResult] = Field(default_factory=list)
+    passed_count: int = 0
+    total_count: int = 0
 
 
 class Session(BaseModel):

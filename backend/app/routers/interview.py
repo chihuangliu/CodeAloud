@@ -51,7 +51,7 @@ async def start_interview(body: StartRequest):
 
         session.add_message("assistant", full_response)
         await session_manager.save(session)
-        yield f"data: {json.dumps({'done': True, 'session_id': session.session_id})}\n\n"
+        yield f"data: {json.dumps({'done': True, 'session_id': session.session_id, 'starter_code': session.question.starter_code})}\n\n"
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
 
