@@ -80,6 +80,13 @@ Browser
 ## Roadmap
 
 - [x] MVP: text interview loop + code execution
+- [ ] Fine-tuned hint model: small QLoRA-distilled model gives code-aware hints
+  (single-turn: problem + current code + execution result → one hint)
+  - [ ] v1 — triggered **on Run only** (explicit `inject_code` signal): route that
+    turn to a dedicated hint client with single-turn state input, everything else
+    stays on the conversational interviewer model
+  - [ ] later — the interviewer model decides when to hint and delegates via an
+    MCP `generate_hint` tool instead of explicit routing
 - [ ] RAG: Chroma semantic search, knowledge-base-grounded hints
-- [ ] MCP: Claude autonomously runs code via tool use
+- [ ] MCP: Claude autonomously runs code + delegates hint generation via tool use
 - [ ] Voice: Deepgram STT + ElevenLabs TTS, ~1–1.5s latency
