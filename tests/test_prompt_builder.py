@@ -1,5 +1,5 @@
-from app.services.prompt_builder import build_system_prompt
-from app.models.session import ExecutionResult
+from code_aloud.backend.services.prompt_builder import build_system_prompt
+from code_aloud.backend.models.session import ExecutionResult
 
 
 class TestBuildSystemPrompt:

@@ -5,7 +5,7 @@ from ..models.question import Question
 
 router = APIRouter(prefix="/questions", tags=["questions"])
 
-_QUESTIONS_PATH = Path(__file__).parent.parent.parent / "data" / "questions.json"
+_QUESTIONS_PATH = Path(__file__).parent.parent / "data" / "questions.json"
 
 
 def _load() -> list[Question]:

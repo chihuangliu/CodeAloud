@@ -4,28 +4,26 @@ harness and record the ExecutionResult — the "judge signal" the hint model rea
 Data lives in snapshots.json; this script only executes and records. Uses the
 local runner (CODE_RUNNER=local, the app's default) so judge0 need not be up.
 
-    python finetune/gen_snapshots.py   ->   finetune/states.jsonl
+    python -m code_aloud.fine_tune.data.gen_snapshots   ->   states.jsonl
 """
 import asyncio
 import json
 import os
 import re
-import sys
 from pathlib import Path
 
-ROOT = next(p for p in Path(__file__).resolve().parents if (p / "backend").is_dir())  # codeAloud/
-BACKEND = ROOT / "backend"
-FT = ROOT / "finetune" / "data"                        # pipeline data dir
+DATA = Path(__file__).resolve().parent                 # code_aloud/fine_tune/data/
+ROOT = DATA.parents[1]                                 # code_aloud/
 
-sys.path.insert(0, str(BACKEND))                       # so `import app...` resolves
 os.environ["CODE_RUNNER"] = "local"                    # judge0 optional; matches app default
 os.environ["PYTHON_COLORS"] = "0"                      # child python: no ANSI-colored tracebacks
 
-from app.models.question import Question               # noqa: E402
-from app.services import judge0_service                # noqa: E402
+# imports after the env setup above (judge0_service reads CODE_RUNNER at import)
+from code_aloud.backend.models.question import Question           # noqa: E402
+from code_aloud.backend.services import judge0_service            # noqa: E402
 
-QUESTIONS = {q["id"]: q for q in json.load(open(BACKEND / "data" / "questions.json"))}
-SNAPSHOTS = json.load(open(FT / "snapshots.json"))["snapshots"]
+QUESTIONS = {q["id"]: q for q in json.load(open(ROOT / "backend" / "data" / "questions.json"))}
+SNAPSHOTS = json.load(open(DATA / "snapshots.json"))["snapshots"]
 
 _ANSI = re.compile(r"\x1b\[[0-9;]*m")
 
@@ -56,7 +54,7 @@ async def main() -> None:
         )
         print(f"{snap['question_id']}::{snap['label']:<14} {ex.status:<14} {ex.passed_count}/{ex.total_count}")
 
-    path = FT / "states.jsonl"
+    path = DATA / "states.jsonl"
     with open(path, "w") as f:
         for row in out:
             f.write(json.dumps(row) + "\n")

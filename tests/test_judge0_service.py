@@ -1,7 +1,7 @@
 import pytest
 import httpx
 from unittest.mock import AsyncMock, MagicMock, patch
-from app.services.judge0_service import execute, LANGUAGE_IDS
+from code_aloud.backend.services.judge0_service import execute, LANGUAGE_IDS
 
 
 def make_mock_response(data: dict, status_code: int = 200):
@@ -27,7 +27,7 @@ def patch_httpx(response_data: dict, status_code: int = 200):
     cm.__aenter__ = AsyncMock(return_value=mock_client)
     cm.__aexit__ = AsyncMock(return_value=False)
     return patch(
-        "app.services.judge0_service.httpx.AsyncClient", return_value=cm
+        "code_aloud.backend.services.judge0_service.httpx.AsyncClient", return_value=cm
     ), mock_client
 
 

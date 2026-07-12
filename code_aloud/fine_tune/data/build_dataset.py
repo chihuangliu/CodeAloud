@@ -2,24 +2,25 @@
 chat-format JSONL for finetuning (QLoRA / MLX both consume this shape), then
 split into train/valid/test.
 
-    python finetune/build_dataset.py   ->   finetune/dataset/{train,valid,test}.jsonl
+    python -m code_aloud.fine_tune.data.build_dataset
+        ->   code_aloud/fine_tune/data/dataset/{train,valid,test}.jsonl
 """
 
 import json
 import random
 from pathlib import Path
 
-ROOT = next(p for p in Path(__file__).resolve().parents if (p / "backend").is_dir())
-FT = ROOT / "finetune" / "data"
+DATA = Path(__file__).resolve().parent  # code_aloud/fine_tune/data/
+ROOT = DATA.parents[1]                   # code_aloud/
 QUESTIONS = {
     q["id"]: q for q in json.load(open(ROOT / "backend" / "data" / "questions.json"))
 }
 HINTS = {
-    k: v for k, v in json.load(open(FT / "hints.json")).items() if not k.startswith("_")
+    k: v for k, v in json.load(open(DATA / "hints.json")).items() if not k.startswith("_")
 }
 
 # The slim hint-only system prompt the small model is trained under (distilled
-# from the app's _IDENTITY). Style rules match finetune/hints.json.
+# from the app's _IDENTITY). Style rules match code_aloud/fine_tune/data/hints.json.
 SYSTEM = (
     "You are Alex, a coding interviewer. Given the problem, the candidate's "
     "current code, and its execution result, reply with ONE short guiding hint "
@@ -55,7 +56,7 @@ def render_user(state: dict) -> str:
 
 
 def main() -> None:
-    states = [json.loads(line) for line in open(FT / "states.jsonl")]
+    states = [json.loads(line) for line in open(DATA / "states.jsonl")]
     records, missing = [], []
     for s in states:
         key = f"{s['question_id']}::{s['label']}"
@@ -98,7 +99,7 @@ def main() -> None:
         else:
             splits["train"].append(rec)
 
-    out = FT / "dataset"
+    out = DATA / "dataset"
     out.mkdir(exist_ok=True)
     for name, rows in splits.items():
         with open(out / f"{name}.jsonl", "w") as f:

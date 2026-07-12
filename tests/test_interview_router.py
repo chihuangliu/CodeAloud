@@ -24,9 +24,9 @@ def parse_sse(text: str) -> list[dict]:
     return events
 
 
-SAVE_PATH = "app.services.session_manager.save"
-GET_PATH = "app.services.session_manager.get"
-LLM_PATH = "app.routers.interview.get_llm_client"
+SAVE_PATH = "code_aloud.backend.services.session_manager.save"
+GET_PATH = "code_aloud.backend.services.session_manager.get"
+LLM_PATH = "code_aloud.backend.routers.interview.get_llm_client"
 
 
 class TestStartInterview:
@@ -142,7 +142,7 @@ class TestEndInterview:
         with (
             patch(LLM_PATH, return_value=mock_llm),
             patch(GET_PATH, return_value=sample_session),
-            patch("app.services.session_manager.delete", new_callable=AsyncMock),
+            patch("code_aloud.backend.services.session_manager.delete", new_callable=AsyncMock),
         ):
             resp = client.post(
                 "/interview/end",
@@ -164,7 +164,7 @@ class TestEndInterview:
         with (
             patch(LLM_PATH, return_value=mock_llm),
             patch(GET_PATH, return_value=sample_session),
-            patch("app.services.session_manager.delete", new_callable=AsyncMock),
+            patch("code_aloud.backend.services.session_manager.delete", new_callable=AsyncMock),
         ):
             resp = client.post(
                 "/interview/end",

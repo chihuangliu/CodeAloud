@@ -1,9 +1,9 @@
 from unittest.mock import AsyncMock, patch
-from app.models.session import ExecutionResult
+from code_aloud.backend.models.session import ExecutionResult
 
-GET_PATH = "app.services.session_manager.get"
-SAVE_PATH = "app.services.session_manager.save"
-JUDGE0_PATH = "app.services.judge0_service.execute"
+GET_PATH = "code_aloud.backend.services.session_manager.get"
+SAVE_PATH = "code_aloud.backend.services.session_manager.save"
+JUDGE0_PATH = "code_aloud.backend.services.judge0_service.execute"
 
 
 def mock_execution(stdout="6\n", stderr="", status="Accepted"):

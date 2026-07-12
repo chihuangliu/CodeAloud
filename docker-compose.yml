@@ -21,15 +21,14 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
     env_file:
       - .env
     volumes:
-      - ./backend/app:/app/app
-      - ./backend/data:/app/data
+      - ./code_aloud:/app/code_aloud
       - chroma_data:/app/chroma_db
     depends_on:
       - redis

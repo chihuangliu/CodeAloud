@@ -9,9 +9,9 @@ os.environ.setdefault("LLM_MODEL", "claude-test")
 os.environ.setdefault("JUDGE0_URL", "http://judge0-test:2358")
 os.environ.setdefault("REDIS_URL", "redis://redis-test:6379")
 
-from app.main import app  # noqa: E402 — must come after env setup
-from app.models.question import Question, QuestionTestCase
-from app.models.session import Session
+from code_aloud.backend.main import app  # noqa: E402 — must come after env setup
+from code_aloud.backend.models.question import Question, QuestionTestCase
+from code_aloud.backend.models.session import Session
 
 
 @pytest.fixture

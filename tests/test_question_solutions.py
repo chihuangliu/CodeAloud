@@ -3,21 +3,17 @@ End-to-end tests: run a correct solution for every question through the
 code harness and verify the output matches each test case's expected value.
 """
 
-import json
-from pathlib import Path
 import pytest
-from app.services.judge0_service import _execute_local
-from app.services.code_harness import (
+from code_aloud.backend.services.judge0_service import _execute_local
+from code_aloud.backend.services.code_harness import (
     build_test_code,
     build_class_test_code,
     outputs_match,
 )
-from app.models.question import Question
+from code_aloud.backend.models.question import Question
+from code_aloud.backend.routers.questions import _load
 
-QUESTIONS_PATH = Path(__file__).resolve().parent.parent / "data" / "questions.json"
-
-with open(QUESTIONS_PATH) as f:
-    ALL_QUESTIONS: list[Question] = [Question(**q) for q in json.load(f)]
+ALL_QUESTIONS: list[Question] = _load()
 
 QUESTIONS_BY_ID = {q.id: q for q in ALL_QUESTIONS}
 

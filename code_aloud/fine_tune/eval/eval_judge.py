@@ -9,11 +9,11 @@ subscription for free, and swaps to the Anthropic API without touching the
 rubric:
 
   # automated, on the Claude subscription (default), scoring teacher hints:
-  python finetune/eval/eval_judge.py
+  python -m code_aloud.fine_tune.eval.eval_judge
   # score a model's predictions:
-  python finetune/eval/eval_judge.py --predictions preds.jsonl
+  python -m code_aloud.fine_tune.eval.eval_judge --predictions preds.jsonl
   # via API instead:
-  python finetune/eval/eval_judge.py --backend api --model claude-opus-4-8
+  python -m code_aloud.fine_tune.eval.eval_judge --backend api --model claude-opus-4-8
 
 predictions.jsonl (optional): one object per line {"question_id","label","hint"}.
 If absent, the teacher hint from hints.json is scored (baseline / self-check).
@@ -32,9 +32,9 @@ import random
 import re
 from pathlib import Path
 
-EVAL = Path(__file__).resolve().parent           # finetune/eval/
-ROOT = next(p for p in EVAL.parents if (p / "backend").is_dir())  # codeAloud/
-FT = ROOT / "finetune" / "data"                  # pipeline data dir
+EVAL = Path(__file__).resolve().parent           # code_aloud/fine_tune/eval/
+ROOT = EVAL.parents[1]                            # code_aloud/
+FT = EVAL.parent / "data"                         # pipeline data dir
 QUESTIONS = {q["id"]: q for q in json.load(open(ROOT / "backend" / "data" / "questions.json"))}
 HINTS = {k: v for k, v in json.load(open(FT / "hints.json")).items() if not k.startswith("_")}
 
@@ -234,7 +234,7 @@ class ManualBackend(JudgeBackend):
             f"\nWrote {len(items)} judge requests -> {EVAL / 'to_judge.jsonl'}\n"
             "This backend is not automated: a Claude Code agent must read each item's\n"
             "`prompt`, grade per the rubric, and write one JSON verdict per line to\n"
-            "finetune/eval/judged.jsonl, then rerun. For a hands-off run use --backend claude-cli."
+            "code_aloud/fine_tune/eval/judged.jsonl, then rerun. For a hands-off run use --backend claude-cli."
         )
         return None
 
@@ -330,10 +330,8 @@ def main():
 
 def _report(results):
     EVAL.mkdir(exist_ok=True)
-    json.dump(results, open(EVAL / "report.json", "w"), indent=2, ensure_ascii=False)
     n = len(results)
     passed = sum(r["passed"] for r in results)
-    print(f"\n=== hint eval: {passed}/{n} passed ({passed / n:.0%}) ===")
     # by state type
     from collections import defaultdict
     by_state = defaultdict(lambda: [0, 0])
@@ -341,12 +339,30 @@ def _report(results):
         st = r.get("state", "?")
         by_state[st][0] += r["passed"]
         by_state[st][1] += 1
-    print("by state:", {k: f"{a}/{b}" for k, (a, b) in sorted(by_state.items())})
-    fails = [f"{r['id']} ({r.get('reason', 'low score')})" for r in results if not r["passed"]]
-    if fails:
+    summary = {
+        "passed": passed,
+        "total": n,
+        "pass_rate": round(passed / n, 4) if n else 0.0,
+        "by_state": {
+            k: f"{a}/{b} ({a / b:.0%})" for k, (a, b) in sorted(by_state.items())
+        },
+        "failures": [
+            {"id": r["id"], "reason": r.get("reason", "low score")}
+            for r in results if not r["passed"]
+        ],
+    }
+    json.dump(
+        {"summary": summary, "items": results},
+        open(EVAL / "report.json", "w"),
+        indent=2,
+        ensure_ascii=False,
+    )
+    print(f"\n=== hint eval: {passed}/{n} passed ({passed / n:.0%}) ===")
+    print("by state:", summary["by_state"])
+    if summary["failures"]:
         print("failures:")
-        for f in fails:
-            print("  -", f)
+        for fl in summary["failures"]:
+            print(f"  - {fl['id']} ({fl['reason']})")
     print(f"full report -> {EVAL / 'report.json'}")
 
 

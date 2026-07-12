@@ -1,5 +1,5 @@
-from app.models.session import Session
-from app.models.question import Question
+from code_aloud.backend.models.session import Session
+from code_aloud.backend.models.question import Question
 
 
 def make_session(n_messages: int) -> Session:
