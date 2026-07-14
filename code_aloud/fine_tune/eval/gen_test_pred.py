@@ -98,7 +98,7 @@ def main():
     ap.add_argument("--model", required=True, help="model name the endpoint serves")
     ap.add_argument(
         "--out",
-        default=str(EVAL / "preds.jsonl"),
+        default=str(EVAL / "pred.jsonl"),
         help="output predictions jsonl (default: eval/preds.jsonl)",
     )
     ap.add_argument("--temperature", type=float, default=0.0)
@@ -108,6 +108,7 @@ def main():
 
     keys = test_states_in_order()
     out_path = Path(args.out)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w") as f:
         for i, (qid, label, state) in enumerate(keys, 1):
             # rebuild the trained prompt; the model regenerates the assistant hint

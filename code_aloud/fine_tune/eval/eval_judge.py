@@ -10,13 +10,19 @@ rubric:
 
   # automated, on the Claude subscription (default), scoring teacher hints:
   python -m code_aloud.fine_tune.eval.eval_judge
-  # score a model's predictions:
+  # score a model's predictions from its eval_res dir (reads pred.jsonl,
+  # writes judged.jsonl + report.json alongside it):
+  python -m code_aloud.fine_tune.eval.eval_judge --output-dir eval_res/my-model
+  # or point at a predictions file explicitly:
   python -m code_aloud.fine_tune.eval.eval_judge --predictions preds.jsonl
   # via API instead:
   python -m code_aloud.fine_tune.eval.eval_judge --backend api --model claude-opus-4-8
 
-predictions.jsonl (optional): one object per line {"question_id","label","hint"}.
-If absent, the teacher hint from hints.json is scored (baseline / self-check).
+--output-dir: directory for pred.jsonl (input) and judged.jsonl / to_judge.jsonl /
+report.json (output); defaults to eval/.
+--predictions (optional): one object per line {"question_id","label","hint"};
+overrides <output-dir>/pred.jsonl. If no predictions are found at all, the teacher
+hint from hints.json is scored (baseline / self-check).
 
 Backends (--backend):
   claude-cli (default): shells out to `claude -p` per item; automated, no API key,
@@ -172,9 +178,9 @@ def _extract_json(text):
     return json.loads(m.group(0) if m else text)
 
 
-def _write_judged(verdicts):
-    EVAL.mkdir(exist_ok=True)
-    with open(EVAL / "judged.jsonl", "w") as f:
+def _write_judged(verdicts, out_dir):
+    out_dir.mkdir(parents=True, exist_ok=True)
+    with open(out_dir / "judged.jsonl", "w") as f:
         for v in verdicts.values():
             f.write(json.dumps(v, ensure_ascii=False) + "\n")
 
@@ -187,7 +193,8 @@ class ClaudeCLIBackend(JudgeBackend):
     any terminal.
     """
 
-    def __init__(self, model=None):
+    def __init__(self, out_dir, model=None):
+        self.out_dir = out_dir
         self.model = model  # None -> CLI's session default (Opus)
 
     def judge(self, items):
@@ -207,7 +214,7 @@ class ClaudeCLIBackend(JudgeBackend):
             v["id"] = it["id"]
             verdicts[it["id"]] = v
             print(f"  judged {i}/{len(items)}  {it['id']}")
-        _write_judged(verdicts)
+        _write_judged(verdicts, self.out_dir)
         return verdicts
 
 
@@ -217,9 +224,12 @@ class ManualBackend(JudgeBackend):
     judged.jsonl by hand. Use claude-cli for an automated run.
     """
 
+    def __init__(self, out_dir):
+        self.out_dir = out_dir
+
     def judge(self, items):
-        EVAL.mkdir(exist_ok=True)
-        judged_path = EVAL / "judged.jsonl"
+        self.out_dir.mkdir(parents=True, exist_ok=True)
+        judged_path = self.out_dir / "judged.jsonl"
         if judged_path.exists():
             verdicts = {json.loads(l)["id"]: json.loads(l) for l in open(judged_path)}
             missing = [it["id"] for it in items if it["id"] not in verdicts]
@@ -227,14 +237,14 @@ class ManualBackend(JudgeBackend):
                 print(f"judged.jsonl is missing {len(missing)} ids: {missing[:5]}...")
                 return None
             return verdicts
-        with open(EVAL / "to_judge.jsonl", "w") as f:
+        with open(self.out_dir / "to_judge.jsonl", "w") as f:
             for it in items:
                 f.write(json.dumps(it, ensure_ascii=False) + "\n")
         print(
-            f"\nWrote {len(items)} judge requests -> {EVAL / 'to_judge.jsonl'}\n"
+            f"\nWrote {len(items)} judge requests -> {self.out_dir / 'to_judge.jsonl'}\n"
             "This backend is not automated: a Claude Code agent must read each item's\n"
             "`prompt`, grade per the rubric, and write one JSON verdict per line to\n"
-            "code_aloud/fine_tune/eval/judged.jsonl, then rerun. For a hands-off run use --backend claude-cli."
+            f"{self.out_dir / 'judged.jsonl'}, then rerun. For a hands-off run use --backend claude-cli."
         )
         return None
 
@@ -242,10 +252,11 @@ class ManualBackend(JudgeBackend):
 class APIBackend(JudgeBackend):
     """Drop-in Anthropic API judge (Opus by default)."""
 
-    def __init__(self, model):
+    def __init__(self, out_dir, model):
         import anthropic  # guarded: only needed for --backend api
 
         self.client = anthropic.Anthropic()
+        self.out_dir = out_dir
         self.model = model
 
     def judge(self, items):
@@ -261,29 +272,34 @@ class APIBackend(JudgeBackend):
             v = json.loads(text)
             v["id"] = it["id"]
             verdicts[it["id"]] = v
-        EVAL.mkdir(exist_ok=True)
-        with open(EVAL / "judged.jsonl", "w") as f:
-            for v in verdicts.values():
-                f.write(json.dumps(v, ensure_ascii=False) + "\n")
+        _write_judged(verdicts, self.out_dir)
         return verdicts
 
 
 # ---------------------------------------------------------------- main
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--predictions", help="jsonl {question_id,label,hint}; default = teacher hints")
+    ap.add_argument("--predictions", help="jsonl {question_id,label,hint}; "
+                    "default = <output-dir>/pred.jsonl if present, else teacher hints")
+    ap.add_argument("--output-dir", default=str(EVAL),
+                    help="dir holding pred.jsonl (input) and where judged.jsonl / "
+                    "to_judge.jsonl / report.json are written (default: eval/)")
     ap.add_argument("--backend", choices=["claude-cli", "manual", "api"], default="claude-cli")
     ap.add_argument("--model", default=None,
                     help="judge model; claude-cli defaults to the session model, api to claude-opus-4-8")
     args = ap.parse_args()
 
+    out_dir = Path(args.output_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
     states = [json.loads(l) for l in open(FT / "states.jsonl")]
     test_qs = test_question_ids(states)
     test_states = [s for s in states if s["question_id"] in test_qs]
 
+    pred_path = Path(args.predictions) if args.predictions else out_dir / "pred.jsonl"
     preds = {}
-    if args.predictions:
-        for l in open(args.predictions):
+    if pred_path.exists():
+        for l in open(pred_path):
             r = json.loads(l)
             preds[f"{r['question_id']}::{r['label']}"] = r["hint"]
 
@@ -302,11 +318,11 @@ def main():
             items.append({**rec, "prompt": render_prompt(s, hint)})
 
     if args.backend == "claude-cli":
-        backend = ClaudeCLIBackend(args.model)
+        backend = ClaudeCLIBackend(out_dir, args.model)
     elif args.backend == "manual":
-        backend = ManualBackend()
+        backend = ManualBackend(out_dir)
     else:
-        backend = APIBackend(args.model or "claude-opus-4-8")
+        backend = APIBackend(out_dir, args.model or "claude-opus-4-8")
     verdicts = backend.judge([{"id": it["id"], "prompt": it["prompt"]} for it in items])
     if verdicts is None:
         return  # claude-code phase 1: waiting for judged.jsonl
@@ -325,11 +341,11 @@ def main():
             **{k: v[k] for k in ("appropriateness", "technical", "style", "justification")},
         })
 
-    _report(results)
+    _report(results, out_dir)
 
 
-def _report(results):
-    EVAL.mkdir(exist_ok=True)
+def _report(results, out_dir):
+    out_dir.mkdir(parents=True, exist_ok=True)
     n = len(results)
     passed = sum(r["passed"] for r in results)
     # by state type
@@ -353,7 +369,7 @@ def _report(results):
     }
     json.dump(
         {"summary": summary, "items": results},
-        open(EVAL / "report.json", "w"),
+        open(out_dir / "report.json", "w"),
         indent=2,
         ensure_ascii=False,
     )
@@ -363,7 +379,7 @@ def _report(results):
         print("failures:")
         for fl in summary["failures"]:
             print(f"  - {fl['id']} ({fl['reason']})")
-    print(f"full report -> {EVAL / 'report.json'}")
+    print(f"full report -> {out_dir / 'report.json'}")
 
 
 if __name__ == "__main__":
