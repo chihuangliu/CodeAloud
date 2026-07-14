@@ -1,0 +1,17 @@
+{"question_id": "lc-226", "label": "stub", "hint": "The tree is empty. What should the function return?"}
+{"question_id": "lc-226", "label": "wrong", "hint": "The current code does not actually invert the tree. What is the first thing you should do in `invertTree`?"}
+{"question_id": "lc-226", "label": "typo-attr", "hint": "Fix the typo in `root.rght` to `root.right`."}
+{"question_id": "lc-226", "label": "optimal-ok", "hint": "Your code looks good! It correctly swaps the left and right children of each node recursively. Since all test cases passed and the output matches the expected result, your solution is correct. Good job!"}
+{"question_id": "lc-322", "label": "stub", "hint": "You haven't written any code yet. Start by defining a function that takes `coins` and `amount` as arguments. What should the function return?"}
+{"question_id": "lc-322", "label": "wrong", "hint": "The code is not returning the correct answer for all test cases. Consider a case where there are multiple ways to make up the same amount with different numbers of coins. How does your current approach handle that?"}
+{"question_id": "lc-322", "label": "typo-var", "hint": "Fix the typo in `dp[amont]`. It should be `dp[amount]`."}
+{"question_id": "lc-322", "label": "optimal-ok", "hint": "Your code is correct! It passes all the test cases. Good job!"}
+{"question_id": "lc-417", "label": "stub", "hint": "You haven't written any code yet. Start by defining the function signature and initializing any necessary data structures or variables."}
+{"question_id": "lc-417", "label": "wrong", "hint": "You haven't started coding yet. What is your plan?"}
+{"question_id": "lc-417", "label": "typo-var", "hint": "Fix the typo in `len(heigths)` to `len(heights)`."}
+{"question_id": "lc-417", "label": "optimal-ok", "hint": "Your code is correct! It finds all cells that can flow to both the Pacific and Atlantic oceans. Good job!"}
+{"question_id": "lc-128", "label": "stub", "hint": "You haven't written any code yet. What do you plan to do?"}
+{"question_id": "lc-128", "label": "wrong", "hint": "The current code returns the number of unique elements in `nums`, not the length of the longest consecutive sequence. Consider how you can use a set to efficiently find and count consecutive numbers."}
+{"question_id": "lc-128", "label": "typo-var", "hint": "Fix the typo in `best = max(best, lenght)`."}
+{"question_id": "lc-128", "label": "optimal-ok", "hint": "Good start! Your code is correct. What's the time complexity?"}
+{"question_id": "lc-128", "label": "suboptimal-ok", "hint": "Your code is correct and efficient. It runs in O(n log n) time due to the sorting step. To meet the O(n) time requirement, consider using a different data structure that allows for faster lookups."}

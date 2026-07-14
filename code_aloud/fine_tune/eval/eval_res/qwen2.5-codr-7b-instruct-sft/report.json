@@ -1,0 +1,235 @@
+{
+  "summary": {
+    "passed": 7,
+    "total": 17,
+    "pass_rate": 0.4118,
+    "by_state": {
+      "?": "0/4 (0%)",
+      "optimal-ok": "0/4 (0%)",
+      "suboptimal-ok": "0/1 (0%)",
+      "typo-attr": "1/1 (100%)",
+      "typo-var": "3/3 (100%)",
+      "wrong": "3/4 (75%)"
+    },
+    "failures": [
+      {
+        "id": "lc-226::stub",
+        "reason": "gate: stub hint should be the bare 'not written' nudge, no question"
+      },
+      {
+        "id": "lc-322::stub",
+        "reason": "gate: stub hint should be the bare 'not written' nudge, no question"
+      },
+      {
+        "id": "lc-417::stub",
+        "reason": "gate: stub hint should be the bare 'not written' nudge, no question"
+      },
+      {
+        "id": "lc-128::stub",
+        "reason": "gate: stub hint should be the bare 'not written' nudge, no question"
+      },
+      {
+        "id": "lc-226::optimal-ok",
+        "reason": "low score"
+      },
+      {
+        "id": "lc-322::optimal-ok",
+        "reason": "low score"
+      },
+      {
+        "id": "lc-417::wrong",
+        "reason": "low score"
+      },
+      {
+        "id": "lc-417::optimal-ok",
+        "reason": "low score"
+      },
+      {
+        "id": "lc-128::optimal-ok",
+        "reason": "low score"
+      },
+      {
+        "id": "lc-128::suboptimal-ok",
+        "reason": "low score"
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "lc-226::stub",
+      "passed": false,
+      "reason": "gate: stub hint should be the bare 'not written' nudge, no question"
+    },
+    {
+      "id": "lc-322::stub",
+      "passed": false,
+      "reason": "gate: stub hint should be the bare 'not written' nudge, no question"
+    },
+    {
+      "id": "lc-417::stub",
+      "passed": false,
+      "reason": "gate: stub hint should be the bare 'not written' nudge, no question"
+    },
+    {
+      "id": "lc-128::stub",
+      "passed": false,
+      "reason": "gate: stub hint should be the bare 'not written' nudge, no question"
+    },
+    {
+      "id": "lc-226::wrong",
+      "state": "wrong",
+      "question": "lc-226",
+      "passed": true,
+      "total": 5,
+      "complexity_ok": true,
+      "appropriateness": 2,
+      "technical": 2,
+      "style": 1,
+      "justification": "Correctly diagnoses that the code returns the tree unchanged, but hands over the full solution ('swap left/right recursively') as a directive rather than a leading question."
+    },
+    {
+      "id": "lc-226::typo-attr",
+      "state": "typo-attr",
+      "question": "lc-226",
+      "passed": true,
+      "total": 6,
+      "complexity_ok": true,
+      "appropriateness": 2,
+      "technical": 2,
+      "style": 2,
+      "justification": "Correctly identifies the offending typo but hands over the exact fix rather than steering to it as a leading nudge and doesn't note that it crashes."
+    },
+    {
+      "id": "lc-226::optimal-ok",
+      "state": "optimal-ok",
+      "question": "lc-226",
+      "passed": false,
+      "total": 3,
+      "complexity_ok": false,
+      "appropriateness": 1,
+      "technical": 2,
+      "style": 0,
+      "justification": "On an optimal solution the hint opens with praise and never asks the candidate to state time and space complexity, so it gives the wrong kind of nudge and violates the complexity conduct rule."
+    },
+    {
+      "id": "lc-322::wrong",
+      "state": "wrong",
+      "question": "lc-322",
+      "passed": true,
+      "total": 5,
+      "complexity_ok": true,
+      "appropriateness": 2,
+      "technical": 2,
+      "style": 1,
+      "justification": "Correctly identifies the greedy approach fails to find the minimum but is generic rather than pointing at the specific coins=[1,5,11],amount=15 failing case, and the closing sentence lectures rather than leads."
+    },
+    {
+      "id": "lc-322::typo-var",
+      "state": "typo-var",
+      "question": "lc-322",
+      "passed": true,
+      "total": 7,
+      "complexity_ok": true,
+      "appropriateness": 3,
+      "technical": 2,
+      "style": 2,
+      "justification": "Correctly and concisely points at the exact typo (`amont`→`amount`) causing the NameError, matching the typo-var state."
+    },
+    {
+      "id": "lc-322::optimal-ok",
+      "state": "optimal-ok",
+      "question": "lc-322",
+      "passed": false,
+      "total": 3,
+      "complexity_ok": false,
+      "appropriateness": 1,
+      "technical": 2,
+      "style": 0,
+      "justification": "On an optimal solution the hint praises and closes out instead of asking the candidate to state time and space complexity, so it gives the wrong kind of nudge and violates the complexity rule."
+    },
+    {
+      "id": "lc-417::wrong",
+      "state": "wrong",
+      "question": "lc-417",
+      "passed": false,
+      "total": 4,
+      "complexity_ok": true,
+      "appropriateness": 1,
+      "technical": 2,
+      "style": 1,
+      "justification": "For a bare stub the hint should just note nothing is written yet, but instead it prescribes the full DFS-plus-intersection solution approach, and being a two-sentence lecture rather than a leading question it fails style."
+    },
+    {
+      "id": "lc-417::typo-var",
+      "state": "typo-var",
+      "question": "lc-417",
+      "passed": true,
+      "total": 7,
+      "complexity_ok": true,
+      "appropriateness": 3,
+      "technical": 2,
+      "style": 2,
+      "justification": "Correctly identifies the crash-causing typo and points at the exact offending variable in one concise leading sentence."
+    },
+    {
+      "id": "lc-417::optimal-ok",
+      "state": "optimal-ok",
+      "question": "lc-417",
+      "passed": false,
+      "total": 3,
+      "complexity_ok": false,
+      "appropriateness": 1,
+      "technical": 2,
+      "style": 0,
+      "justification": "On an optimal solution the hint only gives praise ('looks good','keep up the good work') and never asks the candidate to state time and space complexity, violating the complexity conduct rule and the optimal-state nudge."
+    },
+    {
+      "id": "lc-128::wrong",
+      "state": "wrong",
+      "question": "lc-128",
+      "passed": true,
+      "total": 6,
+      "complexity_ok": true,
+      "appropriateness": 2,
+      "technical": 2,
+      "style": 2,
+      "justification": "Correctly diagnoses that the code only dedupes and fails on consecutive runs, but the nudge hands over the set-and-scan approach rather than posing it as a question."
+    },
+    {
+      "id": "lc-128::typo-var",
+      "state": "typo-var",
+      "question": "lc-128",
+      "passed": true,
+      "total": 5,
+      "complexity_ok": true,
+      "appropriateness": 2,
+      "technical": 1,
+      "style": 2,
+      "justification": "Correctly steers to the typo'd variable but reverses the fix direction, telling the candidate to change the correct `length` to the broken `lenght`."
+    },
+    {
+      "id": "lc-128::optimal-ok",
+      "state": "optimal-ok",
+      "question": "lc-128",
+      "passed": false,
+      "total": 3,
+      "complexity_ok": false,
+      "appropriateness": 1,
+      "technical": 2,
+      "style": 0,
+      "justification": "On an optimal solution the hint should ask the candidate to state time and space complexity, but instead it tells them the O(n) time, praises them, and never asks anything—violating the complexity rule and style."
+    },
+    {
+      "id": "lc-128::suboptimal-ok",
+      "state": "suboptimal-ok",
+      "question": "lc-128",
+      "passed": false,
+      "total": 2,
+      "complexity_ok": false,
+      "appropriateness": 1,
+      "technical": 1,
+      "style": 0,
+      "justification": "The hint explicitly analyzes the current solution's complexity ('O(n log n)... O(n)'), violating the complexity-conduct rule, opens with praise, and lectures rather than leading, though the O(n) target nudge is reasonable."
+    }
+  ]
+}
